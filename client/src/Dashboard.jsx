@@ -4,9 +4,9 @@ import Hero from './components/hero'
 
 const Dashboard = () => {
   return (
-    <div className="dashboard min-h-screen w-full flex flex-col">
+    <div className="dashboard h-[90%] w-full flex flex-col">
       <Top />
-      <div className="flex-grow">
+      <div className="flex-grow ">
         <Hero />
         
       </div>

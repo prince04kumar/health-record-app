@@ -1,15 +1,22 @@
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
-    
-   mongoose.connection.on('connected', () => {
-    console.log('Mongoose is connected!!!');
-   })
+    try {
+         mongoose.connect(`${process.env.MONGODB_URI}/health-app` 
+        ).then(() => {
+            console.log('Connected to MongoDB');
+        }).catch((error) => {
+            console.error(`Error connecting to MongoDB: ${error.message}`);
+          
+        });
 
-    await mongoose.connect(`${process.env.MONGO_URI}/health-record` )
 
+    }
 
+     catch (error) {
+        console.error(`Error connecting to MongoDB: ${error.message}`);
+        process.exit(1);
+    }
+};
 
-}
-
-exports.connectDB = connectDB
+exports.connectDB = connectDB;

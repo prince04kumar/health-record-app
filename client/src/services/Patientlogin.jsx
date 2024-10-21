@@ -6,12 +6,37 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSignIn) {
-      console.log('Sign in attempt with:', email, password);
-    } else {
-      console.log('Sign up attempt with:', username, email, password);
+
+    const url = isSignIn ? 'http://localhost:4000/api/user/UserLogin' : 'http://localhost:4000/api/user/addUser';
+    const payload = isSignIn
+      ? { email, password }  // For login
+      : { name: username, email, password };  // For sign-up
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setMessage(data.message);
+        console.log('Success:', data.message);
+        if (isSignIn && data.token) {
+          // Store token in localStorage or state
+          localStorage.setItem('token', data.token);
+        }
+      } else {
+        setMessage(data.message || 'Error occurred. Please try again.');
+      }
+    } catch (error) {
+      setMessage('Error: ' + error.message);
+      console.error('Error:', error);
     }
   };
 
