@@ -15,7 +15,7 @@ const Doctors = () => {
   );
 
   return (
-    <div className="bg-white h-screen w-full p-6 overflow-y-auto">
+    <div className="bg-white h-screen w-full p-6 overflow-y-scroll">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Doctors</h2>
 
       {/* Search bar and filter */}

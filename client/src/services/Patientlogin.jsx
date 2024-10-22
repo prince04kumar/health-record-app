@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/patient-dashboard'); // Redirect if already logged in
+    }
+  }, [navigate]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,9 +39,14 @@ const Login = () => {
         setMessage(data.message);
         console.log('Success:', data.message);
         if (isSignIn && data.token) {
-          // Store token in localStorage or state
+          // Store token and redirect to the patient dashboard
           localStorage.setItem('token', data.token);
+          navigate('/patient-dashboard'); // Redirect to patient dashboard
+        } else if (!isSignIn) {
+          // Redirect after successful sign-up
+          navigate('/patient-dashboard');
         }
+
       } else {
         setMessage(data.message || 'Error occurred. Please try again.');
       }

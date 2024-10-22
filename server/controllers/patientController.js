@@ -76,6 +76,7 @@ const addUser = async (req, res )=>{
                 //create token
                 const token = jwt.sign({email: user.email, password: user.password}, process.env.jwtSecret);
                 res.json({message: "Login successful", success: true, token: token});
+                console.log("Login successful",token);
                 
             })
         })
