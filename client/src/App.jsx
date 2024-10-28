@@ -9,6 +9,8 @@ import AdminLogin from './services/AdminLogin';
 import ProtectedRoute from './components/protectedRoute';
 import Doctors from './pages/patient/Doctors';
 import Report from './pages/patient/Report';
+import Appointment from './pages/patient/Appointment';
+import Profile from './pages/patient/Profile';
 
 
 function App() {
@@ -21,12 +23,11 @@ function App() {
          {/* Nested routing for PatientDashboard */}  
 
       <Route path="/patient-dashboard" element={<ProtectedRoute><PatientDashboard/></ProtectedRoute>} >
-          <Route path="doctors" element={<ProtectedRoute><Doctors/></ProtectedRoute>} />
+          <Route  index element={<ProtectedRoute><Doctors/></ProtectedRoute>} />
           <Route path="reports" element={<ProtectedRoute><Report/></ProtectedRoute>} />
-          {/* <Route path="health" element={<ProtectedRoute><Health /></ProtectedRoute>} />
-          <Route path="appointments" element={<ProtectedRoute><Appointments /></ProtectedRoute>} />
-          <Route path="medications" element={<ProtectedRoute><Medications /></ProtectedRoute>} />
-          <Route path="vitals" element={<ProtectedRoute><Vitals /></ProtectedRoute>}/> */}
+          <Route path="Appointments" element={<ProtectedRoute><Appointment/></ProtectedRoute>} />
+          <Route path="Profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
+         
         </Route>
         <Route path="/admin-login" element={<AdminLogin />} />
       </Routes>

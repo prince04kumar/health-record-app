@@ -12,7 +12,7 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/patient-dashboard'); // Redirect if already logged in
+      navigate('/patient-dashboard');    // Redirect if already logged in
     }
   }, [navigate]);
 
@@ -38,14 +38,13 @@ const Login = () => {
       if (data.success) {
         setMessage(data.message);
         console.log('Success:', data.message);
-        if (isSignIn && data.token) {
+
+        
+        if (data.token) {
           // Store token and redirect to the patient dashboard
           localStorage.setItem('token', data.token);
           navigate('/patient-dashboard'); // Redirect to patient dashboard
-        } else if (!isSignIn) {
-          // Redirect after successful sign-up
-          navigate('/patient-dashboard');
-        }
+        } 
 
       } else {
         setMessage(data.message || 'Error occurred. Please try again.');

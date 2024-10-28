@@ -4,51 +4,53 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('../models/UserModel');
 
 
-const addUser = async (req, res )=>{
-    try{
-        const {name,email,password} = req.body;
-        if(!name || !email || !password){
-            return res.status(400).json({message: "All fields are required for adding user"});
-            
-        }
-        //validate email
-        if(!validator.isEmail(email)){
-            return res.json({message: "Invalid email",success: false})
+const addUser = async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
 
+        // Check for required fields
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: "All fields are required for adding user" });
         }
-        //validate password
-        if(password.length < 6){
-            return res.json({message: "Password must be at least 6 characters", success: false});
+
+        // Validate email format
+        if (!validator.isEmail(email)) {
+            return res.status(400).json({ message: "Invalid email format", success: false });
         }
-        //hash the password
+
+        // Validate password length
+        if (password.length < 6) {
+            return res.status(400).json({ message: "Password must be at least 6 characters", success: false });
+        }
+
+        // Check if the user already exists
+        const existingUser = await UserModel.findOne({ email });
+        if (existingUser) {
+            return res.status(409).json({ message: "User already exists", success: false });
+        }
+
+        // Hash the password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        const userData = {
-            name ,
-            email,
-            password: hashedPassword
-        }
+        // Create user data and save
+        const userData = { name, email, password: hashedPassword };
         const newUser = new UserModel(userData);
-        newUser.save().then((user)=>{
-            res.json({
-                message: "user added successfully", success : true
-            })
-            console.log("user added successfully");
-        }).catch((error)=>{
-            console.error(`Error adding a new User: ${error.message}`);
-            res.status(500).json({message: "Server error" , success: false});
-        })
+        await newUser.save();
 
+        // Generate JWT token
+        const token = jwt.sign({ email: newUser.email }, process.env.jwtSecret);
 
+        // Send success response with token
+        res.json({ message: "User added successfully", success: true, token });
+        console.log("User added successfully", token);
 
-    }catch(error){
+    } catch (error) {
         console.error(`Error adding a new User: ${error.message}`);
-        res.status(500).json({message: "Server error" , success: false});
-  
-
+        res.status(500).json({ message: "Server error", success: false });
     }
-}
+};
+
 
 //api for User login
 
