@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaTrash, FaUpload, FaFileAlt, FaImage } from 'react-icons/fa';
 
 const Report = () => {
@@ -19,22 +20,42 @@ const Report = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      // Upload file to server
-      console.log('Uploading file:', selectedFile);
-      // After successful upload, update reports state
-      setReports([...reports, {
-        id: reports.length + 1,
-        name: selectedFile.name,
-        type: selectedFile.type.startsWith('image/') ? 'image' : 'pdf',
-        date: new Date().toISOString().split('T')[0],
-        note: note
-      }]);
-      setSelectedFile(null);
-      setNote('');
-    }
-  };
+  // Report.jsx
+const handleUpload = async () => {
+  if (selectedFile) {
+      try {
+          const formData = new FormData();
+          formData.append('file', selectedFile);
+          formData.append('note', note);
+
+          console.log('Uploading file:', selectedFile.name); // Debug log
+
+          const response = await axios.post(
+              'http://localhost:4000/api/user/patient-dashboard/reports/upload',
+              formData,
+              {
+                  headers: {
+                      'Content-Type': 'multipart/form-data',
+                  },
+                  onUploadProgress: (progressEvent) => {
+                      const percentCompleted = Math.round(
+                          (progressEvent.loaded * 100) / progressEvent.total
+                      );
+                      console.log('Upload progress:', percentCompleted, '%');
+                  },
+              }
+          );
+          setSelectedFile(null);
+          setNote(" ");
+          console.log('Upload response:', response.data);
+          // Handle successful upload
+          
+      } catch (error) {
+          console.error('Upload error details:', error.response?.data || error.message);
+          alert('Error uploading file: ' + (error.response?.data?.message || error.message));
+      }
+  }
+};
 
   const handleDelete = (id) => {
     setReports(reports.filter(report => report.id !== id));
