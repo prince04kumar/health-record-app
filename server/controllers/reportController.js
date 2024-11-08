@@ -32,8 +32,9 @@ const addfile = async (req, res) => {
 const getAllReports = async (req, res) => {
     try {
         // Only get reports for the logged-in user
-      //  const reports = await File.find({ userId: req.user._id }); 
-        const reports = await File.find(); 
+        const reports = await File.find({
+            userId: req.user._id 
+        }); 
         res.status(200).json(reports);
     } catch (error) {
         res.status(500).send('Server error: ' + error.message);
@@ -44,7 +45,6 @@ const downloadFile = async (req, res) => {
     try {
         // First check if the file belongs to the user
         const file = await File.findOne({ 
-            filename: req.params.filename,
             userId: req.user._id 
         });
 
@@ -68,7 +68,6 @@ const deleteFile = async (req, res) => {
         const filename = req.params.filename;
         // Only delete if the file belongs to the user
         const result = await File.deleteOne({ 
-            filename: filename,
             userId: req.user._id 
         });
         

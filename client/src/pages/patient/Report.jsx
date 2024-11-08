@@ -30,6 +30,9 @@ const Report = () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/user/patient-dashboard/reports/download/${filename}`, {
         responseType: 'blob',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
@@ -86,7 +89,13 @@ const Report = () => {
   const handleDelete = (filename) => {
     const deleteReport = async () => {
       try {
-        const deleteReport = await axios.delete(`http://localhost:4000/api/user/patient-dashboard/reports/delete/${filename}`);
+        const deleteReport = await axios.delete(`http://localhost:4000/api/user/patient-dashboard/reports/delete/${filename}`, {
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+
+        );
         console.log('Report deleted:', deleteReport.data);
         allReports();
       } catch (error) {

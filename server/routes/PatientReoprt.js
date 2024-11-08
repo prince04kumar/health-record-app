@@ -12,6 +12,6 @@ userRouter.post('/UserLogin', user);
 userRouter.post('/patient-dashboard/reports/upload', auth, upload.single('file'), addfile);
 userRouter.get('/patient-dashboard/reports', auth, getAllReports);
 userRouter.get('/patient-dashboard/reports/download/:filename', auth, downloadFile);
-userRouter.delete('/patient-dashboard/reports/delete/:filename', deleteFile);
+userRouter.delete('/patient-dashboard/reports/delete/:filename',auth, deleteFile);
 
 module.exports = userRouter;
