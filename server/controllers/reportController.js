@@ -8,6 +8,8 @@ const addfile = async (req, res) => {
     try {
         if (!req.file) return res.status(400).send('No file uploaded');
 
+        console.log(req.file);
+
         const newFile = new File({
             filename: req.file.filename,
             filepath: req.file.path,

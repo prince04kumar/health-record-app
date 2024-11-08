@@ -10,7 +10,11 @@ const Report = () => {
 
   const allReports = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/user/patient-dashboard/reports');
+      const response = await axios.get('http://localhost:4000/api/user/patient-dashboard/reports', {
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    });
       setReports(response.data);
       console.log('Reports:', response.data);
     } catch (error) {
@@ -58,6 +62,7 @@ const Report = () => {
           {
             headers: {
               'Content-Type': 'multipart/form-data',
+              'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
             onUploadProgress: (progressEvent) => {
               const percentCompleted = Math.round(
