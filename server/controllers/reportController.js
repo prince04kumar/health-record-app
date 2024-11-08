@@ -1,3 +1,4 @@
+// controllers/reportController.js
 const express = require('express');
 const File = require('../models/Reoprt');
 const path = require('path');
@@ -11,7 +12,8 @@ const addfile = async (req, res) => {
             filename: req.file.filename,
             filepath: req.file.path,
             filetype: req.file.mimetype,
-            note: req.body.note
+            note: req.body.note,
+            userId: req.user._id  // Add the user ID from the authenticated request
         });
 
         await newFile.save();
@@ -27,7 +29,9 @@ const addfile = async (req, res) => {
 
 const getAllReports = async (req, res) => {
     try {
-        const reports = await File.find();
+        // Only get reports for the logged-in user
+      //  const reports = await File.find({ userId: req.user._id }); 
+        const reports = await File.find(); 
         res.status(200).json(reports);
     } catch (error) {
         res.status(500).send('Server error: ' + error.message);
@@ -35,18 +39,37 @@ const getAllReports = async (req, res) => {
 };
 
 const downloadFile = async (req, res) => {
-    const filePath = path.join(__dirname, '..', 'uploads', req.params.filename);
-    if (fs.existsSync(filePath)) {
-        res.download(filePath);
-    } else {
-        res.status(404).send('File not found');
+    try {
+        // First check if the file belongs to the user
+        const file = await File.findOne({ 
+            filename: req.params.filename,
+            userId: req.user._id 
+        });
+
+        if (!file) {
+            return res.status(404).send('File not found');
+        }
+
+        const filePath = path.join(__dirname, '..', 'uploads', req.params.filename);
+        if (fs.existsSync(filePath)) {
+            res.download(filePath);
+        } else {
+            res.status(404).send('File not found');
+        }
+    } catch (error) {
+        res.status(500).send('Server error: ' + error.message);
     }
 };
 
 const deleteFile = async (req, res) => {
     try {
         const filename = req.params.filename;
-        const result = await File.deleteOne({ filename: filename });
+        // Only delete if the file belongs to the user
+        const result = await File.deleteOne({ 
+            filename: filename,
+            userId: req.user._id 
+        });
+        
         if (result.deletedCount === 1) {
             console.log("File deleted successfully");
             res.status(200).send("File deleted successfully");

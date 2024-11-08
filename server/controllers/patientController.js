@@ -38,12 +38,14 @@ const addUser = async (req, res) => {
         const newUser = new UserModel(userData);
         await newUser.save();
 
+
         // Generate JWT token
-        const token = jwt.sign({ email: newUser.email }, process.env.jwtSecret);
+        const token = jwt.sign({ _id: newUser._id, email: user.email }, process.env.jwtSecret);
 
         // Send success response with token
         res.json({ message: "User added successfully", success: true, token });
-        console.log("User added successfully", token);
+        // console.log("User added successfully", token);
+        console.log("user id", newUser._id);
 
     } catch (error) {
         console.error(`Error adding a new User: ${error.message}`);
@@ -68,6 +70,7 @@ const addUser = async (req, res) => {
         //find user by email
         UserModel.findOne({email}).then((user)=>{
             if(!user){
+                console.log("Invalid email or password");
                 return res.json({message: "Invalid email or password", success: false});
             }
             //compare password
@@ -76,9 +79,11 @@ const addUser = async (req, res) => {
                     return res.json({message: "Invalid email or password", success: false});
                 }
                 //create token
-                const token = jwt.sign({email: user.email, password: user.password}, process.env.jwtSecret);
+                // const token = jwt.sign({email: user.email, password: user.password}, process.env.jwtSecret);
+                const token = jwt.sign({ _id: user._id, email: user.email }, process.env.jwtSecret);
                 res.json({message: "Login successful", success: true, token: token});
-                console.log("Login successful",token);
+                // console.log("Login successful",token);
+                console.log("user id", user._id);
                 
             })
         })
@@ -88,5 +93,7 @@ const addUser = async (req, res) => {
         res.status(500).json({message: "Server error", success: false});
     }
   }
+
+ 
 
   module.exports = {addUser, user}
