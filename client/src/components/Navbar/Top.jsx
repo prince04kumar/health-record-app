@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Top = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const linktomap = () => {
+    navigate('/Maps'); // Ensure this path matches the route defined for the maps page
+  }
+    
 
   return (
     <nav className="w-full bg-slate-500 text-white p-4">
@@ -19,7 +26,7 @@ const Top = () => {
             {isMenuOpen ? (
               <path fillRule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
             ) : (
-              <path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+              <path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
             )}
           </svg>
         </button>
@@ -32,8 +39,8 @@ const Top = () => {
             <a href="#" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300">Contact</a>
           </div>
           <div className="mt-4 md:mt-0">
-            <button className="w-full md:w-auto bg-blue-400 rounded-3xl p-3 text-white hover:bg-blue-500 transition-colors">
-              Appointment
+            <button className="w-full md:w-auto bg-blue-400 rounded-3xl p-3 text-white hover:bg-blue-500 transition-colors" onClick={linktomap}>
+              Nearby-Cares
             </button>
           </div>
         </div>

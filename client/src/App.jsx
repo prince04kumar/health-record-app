@@ -11,7 +11,7 @@ import Doctors from './pages/patient/Doctors';
 import Report from './pages/patient/Report';
 import Appointment from './pages/patient/Appointment';
 import Profile from './pages/patient/Profile';
-import Maps from './pages/patient/maps';
+ import Maps from './Maps';
 
 function App() {
   return (

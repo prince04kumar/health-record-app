@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet'; 
-import redmarker from '../../assets/redmarker.png'; 
+import redmarker from '../src/assets/redmarker.png'; // Import the custom marker image
 
 const Maps = () => {
   const [location, setLocation] = useState(null);
