@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserMd, FaFileAlt, FaHeartbeat, FaCalendarAlt, FaPills, FaChartLine , FaUser} from 'react-icons/fa';
+import { FaUserMd, FaFileAlt, FaHeartbeat, FaCalendarAlt, FaPills, FaChartLine , FaUser, FaHome} from 'react-icons/fa';
 
 const SidePanel = () => {
   const [activeItem, setActiveItem] = useState('Doctors');
 
   const menuItems = [
+    { icon: FaHome, text: 'Home', path: '/' },
     { icon: FaUserMd, text: 'Doctors', path: '/patient-dashboard/' },
     { icon: FaFileAlt, text: 'Reports', path: '/patient-dashboard/reports' },
     { icon: FaHeartbeat, text: 'Health', path: '/patient-dashboard/health' },

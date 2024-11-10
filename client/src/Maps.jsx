@@ -3,8 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import L from 'leaflet'; 
-import redmarker from '../src/assets/redmarker.png'; // Import the custom marker image
-
+import redmarker from '../src/assets/redmarker.png'; 
 const Maps = () => {
   const [location, setLocation] = useState(null);
   const [zoom, setZoom] = useState(13); // Set default zoom level
