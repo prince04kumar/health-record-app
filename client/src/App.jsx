@@ -13,6 +13,7 @@ import Appointment from './pages/patient/Appointment';
 import Profile from './pages/patient/Profile';
 import Maps from './Maps';
 import Health from './pages/patient/Health';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -31,8 +32,8 @@ function App() {
           <Route path="profile" element={<Profile/>} />
           <Route path="health" element = {<Health/>} />
         </Route>
-      
       </Routes>
+      <Footer/>
     </Router>
   );
 }
