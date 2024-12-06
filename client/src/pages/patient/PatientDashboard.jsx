@@ -1,8 +1,17 @@
 import React from 'react';
+import { useEffect } from 'react';
 import SidePanel from './patientComponents/sidepannel';
 import { Outlet } from 'react-router-dom'; // Import Outlet for nested routing
-
+import { useLocation } from 'react-router-dom';
 const PatientDashboard = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.message) {
+      toast.success(location.state.message);
+    }
+  }, [location.state]);
+
   return (
     <div className='flex h-screen'>
       <SidePanel />

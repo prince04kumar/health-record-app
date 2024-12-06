@@ -5,6 +5,7 @@ import { doctors, doctorImages } from '../../assets/doctors';
 import { useNavigate } from 'react-router-dom'
 
 
+
 const Doctors = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [specialty, setSpecialty] = useState('All');

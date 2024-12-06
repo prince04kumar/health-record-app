@@ -1,5 +1,9 @@
 import React, { useState ,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// toast.configure();
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -12,13 +16,26 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/patient-dashboard');    // Redirect if already logged in
+      navigate('/patient-dashboard' );    // Redirect if already logged in
     }
   }, [navigate]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password.length < 6) {
+      toast.warn('Password must be at least 6 characters long.', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'colored',
+      });
+      return; // Stop further execution
+    }
 
     const url = isSignIn ? 'http://localhost:4000/api/user/UserLogin' : 'http://localhost:4000/api/user/addUser';
     const payload = isSignIn
@@ -37,20 +54,23 @@ const Login = () => {
       const data = await response.json();
       if (data.success) {
         setMessage(data.message);
+        toast.success(data.message);
         console.log('Success:', data.message);
 
         
         if (data.token) {
           // Store token and redirect to the patient dashboard
           localStorage.setItem('token', data.token);
-          navigate('/patient-dashboard'); // Redirect to patient dashboard
+          navigate('/patient-dashboard' , { state: { message: data.message } }); // Redirect to patient dashboard
         } 
 
       } else {
+        toast.error(data.message || 'Error occurred. Please try again.');
         setMessage(data.message || 'Error occurred. Please try again.');
       }
     } catch (error) {
       setMessage('Error: ' + error.message);
+      toast.error('Error: ' + error.message);
       console.error('Error:', error);
     }
   };
@@ -64,6 +84,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 py-12 px-4 sm:px-6 lg:px-8">
+       <ToastContainer />
       <div className="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg">
         <div>
           <img className="mx-auto h-20 w-auto" src='logo.jpg' alt="HealthRecord Logo" />

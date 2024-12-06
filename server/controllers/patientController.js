@@ -4,12 +4,13 @@ const jwt = require('jsonwebtoken');
 const UserModel = require('../models/UserModel');
 
 
+
 const addUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { username, email, password } = req.body;
 
         // Check for required fields
-        if (!name || !email || !password) {
+        if (!username || !email || !password) {
             return res.status(400).json({ message: "All fields are required for adding user" });
         }
 
@@ -61,10 +62,13 @@ const addUser = async (req, res) => {
     try{
         const{email , password} = req.body;
         if(!email || !password){
+            
             return res.status(400).json({message: "All fields are required"});
+
         }
         //validate email
         if(!validator.isEmail(email)){
+            
             return res.json({message: "Invalid email", success: false});
         }
         //find user by email
@@ -76,6 +80,7 @@ const addUser = async (req, res) => {
             //compare password
             bcrypt.compare(password, user.password).then((isMatch)=>{
                 if(!isMatch){
+                    console.log("Invalid email or password");
                     return res.json({message: "Invalid email or password", success: false});
                 }
                 //create token
@@ -94,6 +99,55 @@ const addUser = async (req, res) => {
     }
   }
 
+  const getUserData = async (req, res) => {
+    console.log("success");
+    try {
+        const userId = req.user._id;
+        const user = await UserModel.findById(userId).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+        res.json({ success: true, user });
+    } catch (error) {
+        console.error(`Error fetching user data: ${error.message}`);
+        res.status(500).json({ message: "Server error", success: false });
+    }
+};
+
+const updateUser = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { firstName, lastName, email, phone, gender, address, dob } = req.body;
+
+        // Check for required fields
+        if (!firstName || !lastName || !email || !phone || !gender || !address || !dob) {
+            return res.status(400).json({ message: "All fields are required for updating user" });
+        }
+
+        // Validate email format
+        if (!validator.isEmail(email)) {
+            return res.status(400).json({ message: "Invalid email format", success: false });
+        }
+
+        // Update user data
+        const updatedUser = await UserModel.findByIdAndUpdate(
+            userId,
+            { firstName, lastName, email, phone, gender, address, dob },
+            { new: true, runValidators: true }
+        ).select('-password');
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+
+        res.json({ message: "User updated successfully", success: true, user: updatedUser });
+    } catch (error) {
+        console.error(`Error updating user: ${error.message}`);
+        res.status(500).json({ message: "Server error", success: false });
+    }
+};
+
+
  
 
-  module.exports = {addUser, user}
+  module.exports = {addUser, user , getUserData, updateUser};
