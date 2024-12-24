@@ -15,7 +15,8 @@ const addfile = async (req, res) => {
             filepath: req.file.path,
             filetype: req.file.mimetype,
             note: req.body.note,
-            userId: req.user._id  // Add the user ID from the authenticated request
+            userId: req.user._id,
+            sectionId: req.body.sectionId // Add the section ID from the request
         });
 
         await newFile.save();
@@ -31,10 +32,9 @@ const addfile = async (req, res) => {
 
 const getAllReports = async (req, res) => {
     try {
-        // Only get reports for the logged-in user
         const reports = await File.find({
-            userId: req.user._id 
-        }); 
+            userId: req.user._id
+        });
         res.status(200).json(reports);
     } catch (error) {
         res.status(500).send('Server error: ' + error.message);
@@ -43,9 +43,9 @@ const getAllReports = async (req, res) => {
 
 const downloadFile = async (req, res) => {
     try {
-        // First check if the file belongs to the user
-        const file = await File.findOne({ 
-            userId: req.user._id 
+        const file = await File.findOne({
+            userId: req.user._id,
+            filename: req.params.filename
         });
 
         if (!file) {
@@ -66,11 +66,11 @@ const downloadFile = async (req, res) => {
 const deleteFile = async (req, res) => {
     try {
         const filename = req.params.filename;
-        // Only delete if the file belongs to the user
-        const result = await File.deleteOne({ 
-            userId: req.user._id 
+        const result = await File.deleteOne({
+            userId: req.user._id,
+            filename: filename
         });
-        
+
         if (result.deletedCount === 1) {
             console.log("File deleted successfully");
             res.status(200).send("File deleted successfully");

@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// ...existing code...
 
 const UserProfileForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
     email: '',
     phone: '',
     gender: '',
     address: '',
     dob: '',
-    profilePhoto: '', // Default profile photo URL
+    profilePhoto: '',
   });
 
-  // Fetch user data from API
+  const [countryCode, setCountryCode] = useState('+91');
+
   const getUserData = async () => {
     try {
       const response = await axios.get(
@@ -26,12 +25,9 @@ const UserProfileForm = () => {
           },
         }
       );
-      console.log('User data:', response.data);
-      // Set the form data with the fetched user data
       setFormData({
         firstName: response.data.user.firstName || '',
         lastName: response.data.user.lastName || '',
-        username: response.data.user.username || '',
         email: response.data.user.email || '',
         phone: response.data.user.phone || '',
         gender: response.data.user.gender || '',
@@ -48,16 +44,14 @@ const UserProfileForm = () => {
     getUserData();
   }, []);
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: name === 'phone' ? value.replace(/0/g, '') : value,
     });
   };
 
-  // Handle profile photo change
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -71,27 +65,16 @@ const UserProfileForm = () => {
       reader.readAsDataURL(file);
     }
   };
-const handleUpdateProfile = async () => {
- try{ 
-  const response = await axios.put(
-    'http://localhost:4000/api/user/patient-dashboard/profile/updateuser',
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    }
-  );
-}
-catch (error) { 
-    console.error('Error updating profile:', error);
-    }
-};
-  // Handle form submission
-  const handleSubmit = async (e) => {
+
+  const handleCountryCodeChange = (e) => {
+    setCountryCode(e.target.value);
+  };
+
+  const handleUpdateProfile = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        'http://localhost:4000/api/user/patient-dashboard/profile',
+        'http://localhost:4000/api/user/patient-dashboard/profile/updateuser',
         formData,
         {
           headers: {
@@ -112,7 +95,6 @@ catch (error) {
       <div className="bg-white shadow-md rounded-lg p-6">
         <h2 className="text-lg font-bold mb-4">Basic Details</h2>
 
-        {/* Profile Photo Section */}
         <div className="mb-4 text-center">
           <img
             src={formData.profilePhoto}
@@ -127,7 +109,7 @@ catch (error) {
           />
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUpdateProfile}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Email</label>
             <input
@@ -161,36 +143,40 @@ catch (error) {
           </div>
 
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Username</label>
-            <input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            />
-          </div>
-
-          <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="border border-gray-300 rounded-lg p-2 w-full"
-            />
+            <div className="flex">
+              <select
+                value={countryCode}
+                onChange={handleCountryCodeChange}
+                className="border border-gray-300 rounded-l-lg p-2"
+              >
+                <option value="+1">+1</option>
+                <option value="+44">+44</option>
+                <option value="+91">+91</option>
+              </select>
+              <input
+                type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="border border-gray-300 rounded-r-lg p-2 w-full"
+              />
+            </div>
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Gender</label>
-            <input
-              type="text"
+            <select
               name="gender"
               value={formData.gender}
               onChange={handleChange}
               className="border border-gray-300 rounded-lg p-2 w-full"
-            />
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
           <div className="mb-4">
@@ -216,7 +202,6 @@ catch (error) {
           </div>
 
           <button
-          onClick={handleUpdateProfile}
             type="submit"
             className="bg-blue-500 text-white px-4 py-2 rounded-lg"
           >

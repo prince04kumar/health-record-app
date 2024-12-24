@@ -27,7 +27,7 @@ const Doctors = () => {
     setSelectedDoctor(null);
   };
   const handleappointment = () => {
-    navigate('/patient-dashboard/Appointments');
+    navigate('/patient-dashboard/appointmentMake');
   }
 
   return (
@@ -94,6 +94,16 @@ const Doctors = () => {
             <p className="text-gray-600 mb-2"><FaStethoscope className="mr-2" />{selectedDoctor.specialty}</p>
             <p className="text-gray-500 mb-2">{selectedDoctor.location}</p>
             <p className="text-gray-500 mb-4">{selectedDoctor.experience}</p>
+            <h2 className='underline text-gray-800'>
+              About </h2>
+            <p className='text-gray-500 mb-4'>{selectedDoctor.about}</p>
+            <h2 className='underline text-gray-800'>Available Slots</h2>
+            <ul className='text-gray-500 mb-4'>
+             <li>Avilable day: 12/12/2000</li>
+             <li>Avilable time : 12:00 PM</li>
+             <li>Slots Avilable : 120</li>
+            </ul>
+           
             <button className="bg-blue-500 text-white py-2 px-4 rounded-lg" onClick={handleappointment}>Book Appointment</button>
           </div>
         </div>

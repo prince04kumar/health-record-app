@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 
-const Appointment = () => {
+const AppointmentMake = () => {
     const [formData, setFormData] = useState({
         name: '',
         age: '',
@@ -112,4 +112,5 @@ const Appointment = () => {
     );
 };
 
-export default Appointment;
+export default  AppointmentMake ;
+    

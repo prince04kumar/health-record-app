@@ -35,13 +35,13 @@ const addUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create user data and save
-        const userData = { name, email, password: hashedPassword };
+        const userData = { username, email, password: hashedPassword };
         const newUser = new UserModel(userData);
         await newUser.save();
 
 
         // Generate JWT token
-        const token = jwt.sign({ _id: newUser._id, email: user.email }, process.env.jwtSecret);
+        const token = jwt.sign({ _id: newUser._id, email: newUser.email }, process.env.jwtSecret);
 
         // Send success response with token
         res.json({ message: "User added successfully", success: true, token });
@@ -58,49 +58,49 @@ const addUser = async (req, res) => {
 //api for User login
 
 
-  const user = (req, res) =>{
-    try{
-        const{email , password} = req.body;
-        if(!email || !password){
-            
-            return res.status(400).json({message: "All fields are required"});
+const user = (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password) {
+
+            return res.status(400).json({ message: "All fields are required" });
 
         }
         //validate email
-        if(!validator.isEmail(email)){
-            
-            return res.json({message: "Invalid email", success: false});
+        if (!validator.isEmail(email)) {
+
+            return res.json({ message: "Invalid email", success: false });
         }
         //find user by email
-        UserModel.findOne({email}).then((user)=>{
-            if(!user){
+        UserModel.findOne({ email }).then((user) => {
+            if (!user) {
                 console.log("Invalid email or password");
-                return res.json({message: "Invalid email or password", success: false});
+                return res.json({ message: "Invalid email or password", success: false });
             }
             //compare password
-            bcrypt.compare(password, user.password).then((isMatch)=>{
-                if(!isMatch){
+            bcrypt.compare(password, user.password).then((isMatch) => {
+                if (!isMatch) {
                     console.log("Invalid email or password");
-                    return res.json({message: "Invalid email or password", success: false});
+                    return res.json({ message: "Invalid email or password", success: false });
                 }
                 //create token
                 // const token = jwt.sign({email: user.email, password: user.password}, process.env.jwtSecret);
                 const token = jwt.sign({ _id: user._id, email: user.email }, process.env.jwtSecret);
-                res.json({message: "Login successful", success: true, token: token});
+                res.json({ message: "Login successful", success: true, token: token });
                 // console.log("Login successful",token);
                 console.log("user id", user._id);
-                
+
             })
         })
     }
-    catch(error){
+    catch (error) {
         console.error(`Error logging in: ${error.message}`);
-        res.status(500).json({message: "Server error", success: false});
+        res.status(500).json({ message: "Server error", success: false });
     }
-  }
+}
 
-  const getUserData = async (req, res) => {
-    console.log("success");
+const getUserData = async (req, res) => {
+    //console.log("success");
     try {
         const userId = req.user._id;
         const user = await UserModel.findById(userId).select('-password');
@@ -147,7 +147,4 @@ const updateUser = async (req, res) => {
     }
 };
 
-
- 
-
-  module.exports = {addUser, user , getUserData, updateUser};
+module.exports = { addUser, user, getUserData, updateUser };

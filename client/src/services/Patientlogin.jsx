@@ -40,7 +40,7 @@ const Login = () => {
     const url = isSignIn ? 'http://localhost:4000/api/user/UserLogin' : 'http://localhost:4000/api/user/addUser';
     const payload = isSignIn
       ? { email, password }  // For login
-      : { name: username, email, password };  // For sign-up
+      : { username, email, password };  // For sign-up
 
     try {
       const response = await fetch(url, {
@@ -50,6 +50,10 @@ const Login = () => {
         },
         body: JSON.stringify(payload),
       });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
       const data = await response.json();
       if (data.success) {

@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import SidePanel from './patientComponents/sidepannel';
 import { Outlet } from 'react-router-dom'; // Import Outlet for nested routing
 import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify'; // Import toast from react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for react-toastify
 const PatientDashboard = () => {
   const location = useLocation();
 
@@ -17,7 +19,7 @@ const PatientDashboard = () => {
       <SidePanel />
       {/* Right panel will render different components based on the route */}
       <div className='flex-1 overflow-y-auto'>
-        <Outlet /> {/* This will render the matched child routes */}
+        <Outlet />
       </div>
     </div>
   );

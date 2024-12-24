@@ -9,17 +9,17 @@ const Dashboard = () => {
   // Simulate loading time
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false); // Set loading to false after 3 seconds
+      setIsLoading(false); 
     }, 2000);
 
-    return () => clearTimeout(timer); // Cleanup the timer
+    return () => clearTimeout(timer); 
   }, []);
 
   return (
     <div className="dashboard h-[90%] w-full flex flex-col">
       <Top />
       <div className="flex-grow">
-        {isLoading ? <Loader /> : <Hero />} // Show Loader component while loading, otherwise show Hero section
+        {isLoading ? <Loader /> : <Hero />} 
       </div>
     </div>
   );

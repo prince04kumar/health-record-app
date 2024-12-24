@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const Top = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,17 +26,17 @@ const Top = () => {
             {isMenuOpen ? (
               <path fillRule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
             ) : (
-              <path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+              <path fillRule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2z"/>
             )}
           </svg>
         </button>
 
         <div className={`w-full md:w-auto md:flex-grow md:flex md:items-center ${isMenuOpen ? 'block' : 'hidden'}`}>
           <div className="md:flex-grow md:flex md:justify-center">
-            <a href="#" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">Home</a>
-            <a href="#" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">About</a>
-            <a href="#" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">Services</a>
-            <a href="#" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300">Contact</a>
+            <Link to="/" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">Home</Link>
+            <Link to="/about" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">About</Link>
+            <Link to="/services" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">Services</Link>
+            <Link to="/ContactUs" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300">Contact</Link>
           </div>
           <div className="mt-4 md:mt-0">
             <button className="w-full md:w-auto bg-blue-400 rounded-3xl p-3 text-white hover:bg-blue-500 transition-colors" onClick={linktomap}>

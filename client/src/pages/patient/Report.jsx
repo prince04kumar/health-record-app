@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaTrash, FaUpload, FaFileAlt, FaImage } from 'react-icons/fa';
+import { FaTrash, FaUpload, FaFileAlt, FaImage, FaFolder, FaEdit, FaSave } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 const Report = () => {
   const [reports, setReports] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [note, setNote] = useState('');
+  const [sections, setSections] = useState([]);
+  const [newSectionName, setNewSectionName] = useState('');
+  const [editingSection, setEditingSection] = useState(null);
+  const [selectedSection, setSelectedSection] = useState('');
 
   const allReports = async () => {
     try {
@@ -22,8 +26,23 @@ const Report = () => {
     }
   };
 
+  const fetchSections = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/api/user/patient-dashboard/sections', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setSections(response.data);
+      console.log('Sections:', response.data);
+    } catch (error) {
+      console.error('Error fetching sections:', error);
+    }
+  };
+
   useEffect(() => {
     allReports();
+    fetchSections();
   }, []);
 
   const handleDownload = async (filename) => {
@@ -51,11 +70,12 @@ const Report = () => {
   };
 
   const handleUpload = async () => {
-    if (selectedFile) {
+    if (selectedFile && selectedSection) {
       try {
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('note', note);
+        formData.append('sectionId', selectedSection);
 
         console.log('Uploading file:', selectedFile.name);
 
@@ -83,6 +103,8 @@ const Report = () => {
         console.error('Upload error details:', error.response?.data || error.message);
         alert('Error uploading file: ' + (error.response?.data?.message || error.message));
       }
+    } else {
+      alert('Please select a section to upload the file.');
     }
   };
 
@@ -107,6 +129,59 @@ const Report = () => {
 
   const handleNoteChange = (e) => {
     setNote(e.target.value);
+  };
+
+  const handleCreateSection = async () => {
+    if (newSectionName.trim() !== '') {
+      try {
+        const response = await axios.post('http://localhost:4000/api/user/patient-dashboard/sections', {
+          name: newSectionName
+        }, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+          }
+        });
+        const newSection = response.data;
+        setSections([...sections, newSection]);
+        setNewSectionName('');
+        setSelectedSection(newSection._id);
+      } catch (error) {
+        console.error('Error creating section:', error);
+      }
+    }
+  };
+
+  const handleEditSection = (id) => {
+    setEditingSection(id);
+  };
+
+  const handleSaveSection = async (id, newName) => {
+    try {
+      await axios.put(`http://localhost:4000/api/user/patient-dashboard/sections/${id}`, {
+        name: newName
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setSections(sections.map(section => section._id === id ? { ...section, name: newName } : section));
+      setEditingSection(null);
+    } catch (error) {
+      console.error('Error updating section:', error);
+    }
+  };
+
+  const handleDeleteSection = async (id) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/user/patient-dashboard/sections/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+      });
+      setSections(sections.filter(section => section._id !== id));
+    } catch (error) {
+      console.error('Error deleting section:', error);
+    }
   };
 
   return (
@@ -140,9 +215,19 @@ const Report = () => {
                 onChange={handleNoteChange}
                 className="border rounded-md px-3 py-2 w-full sm:w-auto"
               />
+              <select
+                value={selectedSection}
+                onChange={(e) => setSelectedSection(e.target.value)}
+                className="border rounded-md px-3 py-2 w-full sm:w-auto"
+              >
+                <option value="">Select Section</option>
+                {sections.map((section) => (
+                  <option key={section._id} value={section._id}>{section.name}</option>
+                ))}
+              </select>
               <button
                 onClick={handleUpload}
-                disabled={!selectedFile}
+                disabled={!selectedFile || !selectedSection}
                 className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Upload
@@ -155,33 +240,84 @@ const Report = () => {
             )}
           </div>
 
+          <div className="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Create New Section</h2>
+            <div className="flex items-center space-x-4">
+              <input
+                type="text"
+                placeholder="Section name"
+                value={newSectionName}
+                onChange={(e) => setNewSectionName(e.target.value)}
+                className="border rounded-md px-3 py-2 w-full sm:w-auto"
+              />
+              <button
+                onClick={handleCreateSection}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
+              >
+                Create
+              </button>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {reports.map((report) => (
-              <div key={report._id} className="bg-white rounded-lg shadow-md p-6">
+            {sections.map((section) => (
+              <div key={section._id} className="bg-white rounded-lg shadow-md p-6">
                 <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center">
-                    {report.type === 'pdf' ? (
-                      <FaFileAlt className="text-red-500 mr-2" />
-                    ) : (
-                      <FaImage className="text-blue-500 mr-2" />
-                    )}
-                    <h3 className="text-lg font-semibold">{report.name}</h3>
+                  {editingSection === section._id ? (
+                    <input
+                      type="text"
+                      value={section.name}
+                      onChange={(e) => handleSaveSection(section._id, e.target.value)}
+                      className="border rounded-md px-3 py-2 w-full"
+                    />
+                  ) : (
+                    <h3 className="text-lg font-semibold">{section.name}</h3>
+                  )}
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => handleEditSection(section._id)}
+                      className="text-blue-500 hover:text-blue-700 transition duration-300"
+                    >
+                      {editingSection === section._id ? <FaSave /> : <FaEdit />}
+                    </button>
+                    <button
+                      onClick={() => handleDeleteSection(section._id)}
+                      className="text-red-500 hover:text-red-700 transition duration-300"
+                    >
+                      <FaTrash />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => handleDelete(report.filename)}
-                    className="text-red-500 hover:text-red-700 transition duration-300"
-                  >
-                    <FaTrash />
-                  </button>
                 </div>
-                <p className="text-sm text-gray-600 mb-2">Uploaded on: {report.date}</p>
-                <p className="text-sm text-gray-800 mb-4">{report.note}</p>
-                <button
-                  onClick={() => handleDownload(report.filename)}
-                  className="ml-4 bg-blue-500 text-white px-2 py-1 rounded"
-                >
-                  Download
-                </button>
+                <div className="grid grid-cols-1 gap-4">
+                  {reports.filter(report => report.sectionId === section._id).map((report) => (
+                    <div key={report._id} className="bg-gray-100 rounded-lg p-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <div className="flex items-center">
+                          {report.filetype === 'application/pdf' ? (
+                            <FaFileAlt className="text-red-500 mr-2" />
+                          ) : (
+                            <FaImage className="text-blue-500 mr-2" />
+                          )}
+                          <h4 className="text-md font-semibold">{report.filename}</h4>
+                        </div>
+                        <button
+                          onClick={() => handleDelete(report.filename)}
+                          className="text-red-500 hover:text-red-700 transition duration-300"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                      <p className="text-sm text-gray-600 mb-2">Uploaded on: {new Date(report.uploadDate).toLocaleDateString()}</p>
+                      <p className="text-sm text-gray-800 mb-4">{report.note}</p>
+                      <button
+                        onClick={() => handleDownload(report.filename)}
+                        className="bg-blue-500 text-white px-2 py-1 rounded"
+                      >
+                        Download
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
