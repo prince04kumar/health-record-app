@@ -15,6 +15,7 @@ import Health from './pages/patient/Health';
 import Footer from './components/Footer';
 import ContactUs from './components/ContactUs';
 import AppointmentMake from './pages/patient/AppointmentMake';
+import AppointmentDisplay from './pages/patient/Appointmentdisplay';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route index element={<Doctors/>} />
           <Route path="reports" element={<Report/>} />
           <Route path="appointmentMake" element={<AppointmentMake/>} />
+          <Route path="appointmentdisplay" element={<AppointmentDisplay/>} />
           <Route path="profile" element={<Profile/>} />
           <Route path="health" element = {<Health/>} />
         </Route>

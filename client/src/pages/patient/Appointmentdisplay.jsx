@@ -1,15 +1,22 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import 'tailwindcss/tailwind.css';
 
-const Appointment_display = () => {
+const Appointmentdisplay = () => {
     const [appointments, setAppointments] = useState([]);
 
     useEffect(() => {
         // Fetch appointments from the database
         const fetchAppointments = async () => {
             try {
-                const response = await fetch('/api/user/');
-                const data = await response.json();
+                const response = await axios('/api/user/patient-dashboard/appointment_display',{
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem("token")}`
+                      }
+                    }
+          
+                  );
+                const data = await response.json;
                 setAppointments(data);
             } catch (error) {
                 console.error('Error fetching appointments:', error);
@@ -43,4 +50,4 @@ const Appointment_display = () => {
     );
 };
 
-export default Appointment_display;
+export default Appointmentdisplay;

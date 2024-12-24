@@ -19,10 +19,24 @@ const AppointmentMake = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log(formData);
+        try {
+            const response = await fetch('/api/appointments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            if (response.ok) {
+                console.log('Appointment saved successfully');
+            } else {
+                console.error('Error saving appointment');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
@@ -112,5 +126,4 @@ const AppointmentMake = () => {
     );
 };
 
-export default  AppointmentMake ;
-    
+export default AppointmentMake;

@@ -1,160 +1,103 @@
-import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import React from "react";
+import { motion } from "framer-motion";
+import { HeartIcon, FireIcon, BeakerIcon, DevicePhoneMobileIcon } from "@heroicons/react/24/solid";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+const HealthDashboard = () => {
+  const healthStats = [
+    { id: 1, name: "Heart", value: 75, icon: <HeartIcon className="h-6 w-6 text-red-500" /> },
+    { id: 2, name: "Lungs", value: 90, icon: <FireIcon className="h-6 w-6 text-blue-500" /> },
+    { id: 3, name: "Stomach", value: 13, icon: <BeakerIcon className="h-6 w-6 text-yellow-500" /> },
+    { id: 4, name: "Liver", value: 44, icon: <DevicePhoneMobileIcon className="h-6 w-6 text-green-500" /> },
+  ];
 
-const Dashboard = () => {
-  // Dummy data for charts
-  const data1 = {
-    labels: ['Internal', 'Resources'],
-    datasets: [
-      {
-        data: [221, 207],
-        backgroundColor: ['#A5C9CA', '#2B7A78'],
-      },
-    ],
-  };
-
-  const data2 = {
-    labels: ['Crawled', 'Uncrawled'],
-    datasets: [
-      {
-        data: [4678, 1493],
-        backgroundColor: ['#6BBE92', '#D3D3D3'],
-      },
-    ],
-  };
-
-  const data3 = {
-    labels: ['URLs without errors', 'URLs with errors'],
-    datasets: [
-      {
-        data: [391, 37],
-        backgroundColor: ['#6BBE92', '#E74C3C'],
-      },
-    ],
-  };
-
-  const issueData = {
-    labels: ['Errors', 'Warnings', 'Notices'],
-    datasets: [
-      {
-        data: [38, 558, 480],
-        backgroundColor: ['#E74C3C', '#FFC107', '#3498DB'],
-      },
-    ],
-  };
+  const appointments = [
+    { id: 1, time: "8:00 - 8:30 AM", title: "Dentist", doctor: "Dr. Dianne Fisher", location: "CityMed Clinic", color: "bg-orange-100" },
+    { id: 2, time: "9:00 - 9:30 AM", title: "Neurologist", doctor: "Dr. Paul Collins", location: "Huston Hospital", color: "bg-blue-100" },
+    { id: 3, time: "6:00 - 6:30 PM", title: "Digital X-Ray", doctor: "Dr. Betty Woods", location: "CityMed Clinic", color: "bg-pink-100" },
+  ];
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Overview</h1>
-
-      {/* Container with Flexbox */}
-      <div className="flex flex-col md:flex-row flex-wrap gap-6">  
-              {/* Crawled URLs Distribution */}
-        <div className="flex-1 w-[250px]  bg-white p-4 rounded shadow">
-          <h2 className="text-lg font-semibold mb-2">Crawled URLs Distribution</h2>
-          {/* <Doughnut data={data1} /> */}
-          <Doughnut
-                data={{
-                  labels: ['Score'],
-                  datasets: [
-                    {
-                      data: [221,91],
-                      backgroundColor: ['#A5C9CA', '#2B7A78'],
-                    },
-                  ],
-                }}
-                options={{
-                  cutout: '70%',
-                  plugins: {
-                    tooltip: { enabled: false },
-                    legend: { display: false },
-                  },
-                }}
-              />
-          <div className="mt-4 text-sm text-gray-700">
-            <p>Internal: 221</p>
-            <p>Resources: 207</p>
-          </div>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 md:p-10">
+      {/* Header */}
+      <header className="flex justify-between items-center w-full max-w-6xl mb-6">
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-800">Health Diagnosis</h1>
+        <div className="flex items-center space-x-2">
+          <span className="text-gray-600">This Day</span>
+          <button className="text-gray-600">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+          </button>
         </div>
+      </header>
 
-        {/* Health Score */}
-        <div className="flex-col w-[250px] bg-white p-4 rounded shadow">
-          <h2 className="text-lg font-semibold mb-2">Health Score</h2>
-          <div className="flex justify-center items-center">
-            <div className="relative w-40 h-40">
-              <Doughnut
-                data={{
-                  labels: ['Score'],
-                  datasets: [
-                    {
-                      data: [91, 9],
-                      backgroundColor: ['#F39C12', '#D3D3D3'],
-                    },
-                  ],
-                }}
-                options={{
-                  cutout: '70%',
-                  plugins: {
-                    tooltip: { enabled: false },
-                    legend: { display: false },
-                  },
-                }}
-              />
-              <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-green-600">91</div>
-            </div>
-          </div>
-          <p className="mt-2 text-center text-green-600">Excellent</p>
-          <p className="text-center text-sm text-gray-600 mt-1">
-            Health Score reflects the proportion of internal URLs on your site that don't have errors.
-          </p>
-        </div>
+      {/* Main Content */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
+        {/* Left Section */}
+        <motion.div
+          className="col-span-1 bg-white rounded-lg shadow-md p-4"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <svg className="w-full h-64" viewBox="0 0 200 400">
+            <circle cx="100" cy="100" r="50" className="fill-blue-300" />
+            {/* Add body SVG */}
+          </svg>
 
-        {/* Crawl Status */}
-        <div className="flex-col w-[250px] bg-white p-4 rounded shadow">
-          <h2 className="text-lg font-semibold mb-2">Crawl Status of Links Found</h2>
-          <Doughnut data={data2} />
-          <div className="mt-4 text-sm text-gray-700">
-            <p>Crawled: 4,678</p>
-            <p>Uncrawled: 1,493</p>
+          
+          <div>
+            {healthStats.map((stat) => (
+              <div key={stat.id} className="flex justify-between items-center mb-2">
+                <div className="flex items-center space-x-2">
+                  {stat.icon}
+                  <span className="font-medium text-gray-700">{stat.name}</span>
+                </div>
+                <span className="font-bold text-gray-900">{stat.value}%</span>
+              </div>
+            ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Issues Distribution */}
-        <div className="flex-col w-[250px] bg-white p-4 rounded shadow">
-          <h2 className="text-lg font-semibold mb-2">Issues Distribution</h2>
-          <div className="flex items-center space-x-4">
-            <div className="w-32 h-32">
-              <Doughnut data={issueData} />
-            </div>
-            <div className="text-sm text-gray-700">
-              <p className="flex items-center">
-                <span className="block w-3 h-3 bg-red-500 mr-2"></span> Errors: 38
-              </p>
-              <p className="flex items-center">
-                <span className="block w-3 h-3 bg-yellow-500 mr-2"></span> Warnings: 558
-              </p>
-              <p className="flex items-center">
-                <span className="block w-3 h-3 bg-blue-500 mr-2"></span> Notices: 480
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Middle Section (Appointments) */}
+        <motion.div
+          className="col-span-1 bg-white rounded-lg shadow-md p-4"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-xl font-bold text-gray-800 mb-4">Calendar</h2>
+          <ul>
+            {appointments.map((appointment) => (
+              <li
+                key={appointment.id}
+                className={`mb-4 p-4 rounded-md shadow-sm ${appointment.color}`}
+              >
+                <div className="flex justify-between">
+                  <span className="font-bold text-gray-800">{appointment.time}</span>
+                  <span className="text-sm text-gray-600">{appointment.location}</span>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900">{appointment.title}</h3>
+                <p className="text-sm text-gray-600">{appointment.doctor}</p>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
 
-        {/* Error Distribution */}
-        <div className="flex-col w-[250px] bg-white p-4 rounded shadow">
-          <h2 className="text-lg font-semibold mb-2">Error Distribution</h2>
-          <Doughnut data={data3} />
-          <div className="mt-4 text-sm text-gray-700">
-            <p>URLs without errors: 391</p>
-            <p>URLs with errors: 37</p>
-          </div>
-        </div>
+        {/* Right Section */}
+        <motion.div
+          className="col-span-1 bg-white rounded-lg shadow-md p-4"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-xl font-bold text-gray-800 mb-4">Stats</h2>
+          {/* Add charts or stats here */}
+        </motion.div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default HealthDashboard;
+

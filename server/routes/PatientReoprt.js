@@ -2,6 +2,7 @@ const express = require('express');
 const { addUser, user, getUserData, updateUser } = require('../controllers/patientController');
 const { addfile, getAllReports, downloadFile, deleteFile } = require('../controllers/reportController');
 const { createSection, getSections, updateSection, deleteSection } = require('../controllers/sectionController');
+const { getschedule, createschedule } = require('../controllers/appointmentcontrols');
 const upload = require('../middleware/multer');
 const auth = require('../middleware/auth.js');
 const path = require('path');

@@ -11,7 +11,7 @@ const SidePanel = () => {
     { icon: FaUserMd, text: 'Doctors', path: '/patient-dashboard/' },
     { icon: FaFileAlt, text: 'Reports', path: '/patient-dashboard/reports' },
     { icon: FaHeartbeat, text: 'Health', path: '/patient-dashboard/health' },
-    { icon: FaCalendarAlt, text: 'Appointments', path: '/patient-dashboard/appointments' },
+    { icon: FaCalendarAlt, text: 'Appointments', path: '/patient-dashboard/appointmentdisplay' },
     { icon: FaPills, text: 'Medications', path: '/patient-dashboard/medications' },
     { icon: FaUser, text: 'Profile', path: '/patient-dashboard/profile' }
   ];
