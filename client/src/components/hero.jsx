@@ -15,22 +15,18 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="flex  h-screen" style={{ background: `url(${doctors.background})` }}>
-      <div className="flex flex-col items-center justify-center w-1/2 p-4">
-        <h1 className={`text-4xl md:text-6xl font-extrabold text-white text-center font-poppins mb-8 transform transition-transform duration-1000 ${slideIn ? 'translate-y-0' : '-translate-y-full'}`}>
-          <span className="block">Your Health</span>
-          <span className={`block text-yellow-300 text-2xl md:text-4xl mt-2 transition-opacity duration-1000 ${fadeIn ? 'opacity-100' : 'opacity-0'}`}>Our Priority</span>
-        </h1>
-        
-        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <LoginButton text="Login as Doctor" onClick={() => navigate('/doctor-login')} />
-          <LoginButton text="Login as Patient" onClick={() => navigate('/patient-login')} />
-          <LoginButton text="Login as Admin" onClick={() => navigate('/admin-login')} />
-        </div>
-      </div>
+    <div className="flex h-screen  " style={{ background: `url(${doctors.background})` }}>
+      <div className='flex flex-col justify-center items-center w-full md:w-1/2'>
+      <h1> your Health</h1>
+      <h2>Our Priority</h2>
 
-      <div className="flex items-center justify-center w-1/2 p-4">
-        <img src={doctors.sideimg} alt="Side" className="h-[100%] w-[70%] mix-blend-multiply" />
+      <button>
+        <LoginButton text="Login" onClick={() => navigate('/patient-dashboard')} />
+      </button>
+
+      </div>
+      <div className='w-1/2 hidden md:flex justify-center items-center '>
+        <span className='bg-red-700 rounded-full h-[80%] w-[80%] contain md:flex justify-center items-center ' ><img className='contain' src="pngegg.png" alt="" /></span>
       </div>
     </div>
   );

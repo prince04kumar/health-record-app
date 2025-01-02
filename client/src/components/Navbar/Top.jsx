@@ -31,7 +31,7 @@ const Top = () => {
           </svg>
         </button>
 
-        <div className={`w-full md:w-auto md:flex-grow md:flex md:items-center ${isMenuOpen ? 'block' : 'hidden'}`}>
+        <div className={`w-full absolute top-16 right-0 left-3 sm:relative md:w-auto md:flex-grow md:flex md:items-center ${isMenuOpen ? 'block' : 'hidden'}`}>
           <div className="md:flex-grow md:flex md:justify-center">
             <Link to="/" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">Home</Link>
             <Link to="/about" className="block mt-4 md:inline-block md:mt-0 hover:text-gray-300 mr-4">About</Link>

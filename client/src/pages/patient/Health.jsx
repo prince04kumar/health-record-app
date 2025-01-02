@@ -18,7 +18,7 @@ const HealthDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4 md:p-10">
-      {/* Header */}
+     
       <header className="flex justify-between items-center w-full max-w-6xl mb-6">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800">Health Diagnosis</h1>
         <div className="flex items-center space-x-2">
@@ -31,19 +31,14 @@ const HealthDashboard = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
-        {/* Left Section */}
         <motion.div
           className="col-span-1 bg-white rounded-lg shadow-md p-4"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <svg className="w-full h-64" viewBox="0 0 200 400">
-            <circle cx="100" cy="100" r="50" className="fill-blue-300" />
-            {/* Add body SVG */}
-          </svg>
+          <img src="./pngegg.png" className="w-full h-64" />
 
           
           <div>
