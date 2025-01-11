@@ -38,7 +38,7 @@ function App() {
           <Route path="health" element = {<Health/>} />
         </Route>
       </Routes>
-      <Footer/>
+    
     </Router>
   );
 }

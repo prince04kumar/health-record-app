@@ -178,11 +178,7 @@ const Top = () => {
             </a>
           ))}
 
-          {/* Mobile Action Buttons */}
-          {/* <div className="flex items-center justify-between px-3 py-2">
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">Cart</a>
-            <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">Login</a>
-          </div> */}
+     
        
         </div>
       </div>

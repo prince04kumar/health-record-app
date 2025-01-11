@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import TopCho from "../pages/healthcomp/TopCho";
+import About from "../pages/healthcomp/About";  
+import { useNavigate } from 'react-router-dom'
+import Footer from "./Footer";
 
 const Hero = () => {
   const [showContent, setShowContent] = useState(false);
+  const navigate = useNavigate();
+  const enter = () => {
+    navigate('/patient-login');
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -11,7 +19,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="bg-white flex items-center justify-center p-4 ">
+    <div className="bg-white flex items-center justify-center p-4 flex flex-col ">
       <div className="bg-[#252C62] text-white rounded-3xl shadow-lg  w-[90%] h-[70%]">
         <div className="flex flex-col items-center justify-between space-y-8 md:space-y-0">
           <div className="">
@@ -40,12 +48,12 @@ const Hero = () => {
                   </p>{" "}
                 </section>
                 <p className="mt-6 text-sm text-gray-300">
-                  IF YOU'RE LOOKING FOR A CREATIVE AND EASY WAY TO BUILD A
-                  WEBSITE, WOW! IS THE PERFECT SOLUTION.
+                  Get the best healthcare services from the top doctors in the
+                  country.
                 </p>
-                <Link to="/consultation">
-                  <button className="mt-6 mb-0 bg-pink-400 text-white px-6 py-2 rounded-full hover:bg-pink-500 transition mb-0">
-                    Book Consultation →
+                <Link to="/patient-login">
+                  <button className="mt-6 mb-0 bg-pink-400 text-white px-6 py-2 rounded-full hover:bg-pink-500 transition " onClick={()=>enter}>
+                   ENTER →
                   </button>
                 </Link>
               </div>
@@ -53,6 +61,9 @@ const Hero = () => {
           )}
         </div>
       </div>
+      <TopCho /> 
+      <About /> 
+      <Footer />
     </div>
   );
 };

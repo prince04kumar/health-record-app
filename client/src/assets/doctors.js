@@ -19,7 +19,7 @@ const doctors = [
     experience: "8 years",
     location: "Los Angeles, CA",
     contact: "jane.smith@example.com",
-    rating: 4.7,
+    rating: 4.3,
     image: "https://via.placeholder.com/150",
     about: "Dr. Jane Smith specializes in skincare and cosmetic treatments, providing innovative solutions for various skin conditions. Her personalized care and dedication to patients set her apart."
   },
@@ -85,7 +85,7 @@ const doctors = [
     experience: "7 years",
     location: "San Diego, CA",
     contact: "laura.martinez@example.com",
-    rating: 4.6,
+    rating: 4.2,
     image: "https://via.placeholder.com/150",
     about: "Dr. Laura Martinez is a trusted gynecologist offering comprehensive women’s health services, from preventive care to family planning and prenatal care."
   },
