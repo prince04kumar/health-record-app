@@ -1,44 +1,60 @@
-import React, { useEffect, useState } from 'react';
-import doctors from '../assets/doctors';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
-  const navigate = useNavigate();
-  const [slideIn, setSlideIn] = useState(false);
-  const [fadeIn, setFadeIn] = useState(false);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    setSlideIn(true);
     setTimeout(() => {
-      setFadeIn(true);
-    }, 1000); // Delay for "Our Priority" to appear after "Your Health"
+      setShowContent(true);
+    }, 1000); // Delay for spans and image to appear after "Healthcare"
   }, []);
 
   return (
-    <div className="flex h-screen  " style={{ background: `url(${doctors.background})` }}>
-      <div className='flex flex-col justify-center items-center w-full md:w-1/2'>
-      <h1> your Health</h1>
-      <h2>Our Priority</h2>
-
-      <button>
-        <LoginButton text="Login" onClick={() => navigate('/patient-dashboard')} />
-      </button>
-
-      </div>
-      <div className='w-1/2 hidden md:flex justify-center items-center '>
-        <span className='bg-red-700 rounded-full h-[80%] w-[80%] contain md:flex justify-center items-center ' ><img className='contain' src="pngegg.png" alt="" /></span>
+    <div className="bg-white flex items-center justify-center p-4 ">
+      <div className="bg-[#252C62] text-white rounded-3xl shadow-lg  w-[90%] h-[70%]">
+        <div className="flex flex-col items-center justify-between space-y-8 md:space-y-0">
+          <div className="">
+            <h1 className="text-6xl md:text-[12rem] font-bold">Healthcare</h1>
+          </div>
+          {showContent && (
+           
+              <div className="flex flex-col items-center justify-center relative top-[-5rem] gap-">
+                <section className="flex">
+                  <p className="hidden md:flex items-center text-lg">
+                    <span className="bg-pink-500 p-2 rounded-full mr-3">
+                      🩸
+                    </span>
+                    Reduce HbA1c
+                  </p>{" "}
+                  <img
+                    src="/doc3.png"
+                    alt="Doctor"
+                    className="w-64 md:w-[28rem] rounded-2xl shadow-md"
+                  />
+                  <p className="hidden md:flex items-center text-lg">
+                    <span className="bg-green-500 p-2 rounded-full mr-3">
+                      💊
+                    </span>
+                    No more medications
+                  </p>{" "}
+                </section>
+                <p className="mt-6 text-sm text-gray-300">
+                  IF YOU'RE LOOKING FOR A CREATIVE AND EASY WAY TO BUILD A
+                  WEBSITE, WOW! IS THE PERFECT SOLUTION.
+                </p>
+                <Link to="/consultation">
+                  <button className="mt-6 mb-0 bg-pink-400 text-white px-6 py-2 rounded-full hover:bg-pink-500 transition mb-0">
+                    Book Consultation →
+                  </button>
+                </Link>
+              </div>
+          
+          )}
+        </div>
       </div>
     </div>
   );
 };
-
-const LoginButton = ({ text, onClick }) => (
-  <button
-    className="bg-white text-blue-600 font-semibold py-2 px-4 rounded-full hover:bg-blue-100 transition-colors duration-300 w-full md:w-auto"
-    onClick={onClick}
-  >
-    {text}
-  </button>
-);
 
 export default Hero;

@@ -18,7 +18,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard h-[90%] w-full flex flex-col">
       <Top />
-      <div className="flex-grow">
+      <div className="">
         {isLoading ? <Loader /> : <Hero />} 
       </div>
     </div>
