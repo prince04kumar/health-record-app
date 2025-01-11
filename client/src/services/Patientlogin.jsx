@@ -37,7 +37,7 @@ const Login = () => {
       return; // Stop further execution
     }
 
-    const url = isSignIn ? 'http://localhost:4000/api/user/UserLogin' : 'http://localhost:4000/api/user/addUser';
+    const url = isSignIn ? 'health-record-app-lac.vercel.app/api/user/UserLogin' : 'health-record-app-lac.vercel.app/api/user/addUser';
     const payload = isSignIn
       ? { email, password }  // For login
       : { username, email, password };  // For sign-up
