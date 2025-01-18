@@ -1,5 +1,5 @@
 const express = require('express');
-const { addUser, user, getUserData, updateUser } = require('../controllers/patientController');
+const { addUser, user, getUserData, updateUser ,getImage , uploadImage } = require('../controllers/patientController');
 const { addfile, getAllReports, downloadFile, deleteFile } = require('../controllers/reportController');
 const { createSection, getSections, updateSection, deleteSection } = require('../controllers/sectionController');
 const { getschedule, createschedule } = require('../controllers/appointmentcontrols');
@@ -16,6 +16,8 @@ userRouter.get('/patient-dashboard/reports/download/:filename', auth, downloadFi
 userRouter.delete('/patient-dashboard/reports/delete/:filename', auth, deleteFile);
 userRouter.get('/patient-dashboard/profile', auth, getUserData);
 userRouter.put('/patient-dashboard/profile/updateuser', auth, updateUser);
+userRouter.put('/patient-dashboard/profile/updateimage', auth, uploadImage);
+userRouter.get('/patient-dashboard/profile/profileimage',auth , getImage );
 
 // Section routes
 userRouter.post('/patient-dashboard/sections', auth, createSection);
@@ -23,9 +25,7 @@ userRouter.get('/patient-dashboard/sections', auth, getSections);
 userRouter.put('/patient-dashboard/sections/:id', auth, updateSection);
 userRouter.delete('/patient-dashboard/sections/:id', auth, deleteSection);
 
-
-//appointment routes
-
+// Appointment routes
 userRouter.get('/patient-dashboard/appointment_display', auth, getschedule);
 userRouter.post('/patient-dashboard/appointment_create', auth, createschedule);
 

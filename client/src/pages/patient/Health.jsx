@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   HeartIcon,
@@ -32,7 +32,7 @@ ChartJS.register(
 );
 
 const HealthDashboard = () => {
-  const healthStats = [
+  const [healthStats, setHealthStats] = useState([
     {
       id: 1,
       name: "Heart",
@@ -57,7 +57,16 @@ const HealthDashboard = () => {
       value: 44,
       icon: <DevicePhoneMobileIcon className="h-6 w-6 text-green-500" />,
     },
-  ];
+  ]);
+
+  const handleHealthInputSubmit = (newStats) => {
+    setHealthStats((prevStats) =>
+      prevStats.map((stat) => ({
+        ...stat,
+        value: newStats[stat.name.toLowerCase()],
+      }))
+    );
+  };
 
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
@@ -236,6 +245,8 @@ const HealthDashboard = () => {
         <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">Health Performance</h1>
         <Line data={data} options={options} title="Your Performance"/>
       </div>
+
+      
     </div>
   );
 };

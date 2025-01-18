@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaSearch, FaStethoscope } from 'react-icons/fa';
-import { doctors } from '../../assets/doctors';
+import { doctors  } from '../../assets/doctors';
 
 const Doctors = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,7 +63,7 @@ const Doctors = () => {
               <img 
                 src={doctor.image} 
                 alt={doctor.name} 
-                className="w-full h-48 object-cover object-center"
+                className="w-full h-full object-cover object-center"
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold text-gray-800">{doctor.name}</h3>

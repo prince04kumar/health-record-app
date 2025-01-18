@@ -9,20 +9,13 @@ if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir);  // Use the absolute path
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
+const storage = multer.memoryStorage();
 
 const upload = multer({
     storage: storage,
     fileFilter: (req, file, cb) => {
         const fileTypes = /pdf|jpg|jpeg|png/;
-        const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+        const extname = fileTypes.test(file.originalname.toLowerCase());
         const mimetype = fileTypes.test(file.mimetype);
 
         if (extname && mimetype) {
@@ -34,7 +27,4 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 } // 5 MB limit
 });
 
-
-
-  
-module.exports = upload ;
+module.exports = upload;

@@ -6,8 +6,8 @@ const reportSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  filepath: {
-    type: String,
+  filedata: {
+    type: Buffer,
     required: true
   },
   filetype: {

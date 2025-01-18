@@ -2,8 +2,7 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserModel = require('../models/UserModel');
-
-
+const UserProfile = require('../models/userprofile');
 
 const addUser = async (req, res) => {
     try {
@@ -46,7 +45,7 @@ const addUser = async (req, res) => {
         // Send success response with token
         res.json({ message: "User added successfully", success: true, token });
         // console.log("User added successfully", token);
-        console.log("user id", newUser._id);
+       // console.log("user id", newUser._id);
 
     } catch (error) {
         console.error(`Error adding a new User: ${error.message}`);
@@ -87,8 +86,8 @@ const user = (req, res) => {
                 // const token = jwt.sign({email: user.email, password: user.password}, process.env.jwtSecret);
                 const token = jwt.sign({ _id: user._id, email: user.email }, process.env.jwtSecret);
                 res.json({ message: "Login successful", success: true, token: token });
-                // console.log("Login successful",token);
-                console.log("user id", user._id);
+                
+               // console.log("user id", user._id);
 
             })
         })
@@ -100,7 +99,6 @@ const user = (req, res) => {
 }
 
 const getUserData = async (req, res) => {
-    //console.log("success");
     try {
         const userId = req.user._id;
         const user = await UserModel.findById(userId).select('-password');
@@ -108,6 +106,7 @@ const getUserData = async (req, res) => {
             return res.status(404).json({ message: "User not found", success: false });
         }
         res.json({ success: true, user });
+       // console.log(user);
     } catch (error) {
         console.error(`Error fetching user data: ${error.message}`);
         res.status(500).json({ message: "Server error", success: false });
@@ -120,7 +119,7 @@ const updateUser = async (req, res) => {
         const { firstName, lastName, email, phone, gender, address, dob } = req.body;
 
         // Check for required fields
-        if (!firstName || !lastName || !email || !phone || !gender || !address || !dob) {
+        if (!firstName || !lastName || !email || !phone || !gender || !address || !dob ) {
             return res.status(400).json({ message: "All fields are required for updating user" });
         }
 
@@ -141,10 +140,57 @@ const updateUser = async (req, res) => {
         }
 
         res.json({ message: "User updated successfully", success: true, user: updatedUser });
+      
     } catch (error) {
         console.error(`Error updating user: ${error.message}`);
         res.status(500).json({ message: "Server error", success: false });
     }
 };
 
-module.exports = { addUser, user, getUserData, updateUser };
+const uploadImage = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const { profileImage } = req.body;
+
+        if (!profileImage) {
+            return res.status(400).json({ message: "Profile image is required" });
+        }
+
+        const updatedUser = await UserProfile.findByIdAndUpdate(
+            userId,
+            { profileImage },
+            { new: true, runValidators: true }
+        ).select('-password');
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found", success: false });
+        }
+
+        res.json({ message: "Profile image uploaded successfully", success: true, user: updatedUser });
+    } catch (error) {
+        console.error(`Error uploading profile image: ${error.message}`);
+        res.status(500).json({ message: "Server error", success: false });
+    }
+};
+
+const getImage = async (req, res) => {
+    console.log("succcess")
+    console.log("userId:", req.user?._id)
+    try {
+        const userId = req.user._id;
+        
+        // Try different search methods
+        const userByString = await UserProfile.findOne({ _id: userId.toString() });
+        console.log("Found by string:", userByString);
+        
+        const userById = await UserProfile.findById(userId);
+        console.log("Found by ID:", userById);
+        
+        // Rest of your code...
+    } catch (error) {
+        console.error(`Error:`, error);
+        res.status(500).json({ message: "Server error", success: false });
+    }
+};
+
+module.exports = { addUser, user, getUserData, updateUser, uploadImage, getImage };

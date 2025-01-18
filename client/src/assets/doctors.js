@@ -9,7 +9,7 @@ const doctors = [
     location: "New York, NY",
     contact: "john.doe@example.com",
     rating: 4.5,
-    image: "./doc1.png",
+    image: doc1,
     about: "Dr. John Doe is a highly skilled cardiologist with a decade of experience treating complex heart conditions. He is known for his patient-centered approach and advanced diagnostic skills."
   },
   {
@@ -20,7 +20,7 @@ const doctors = [
     location: "Los Angeles, CA",
     contact: "jane.smith@example.com",
     rating: 4.3,
-    image: "https://via.placeholder.com/150",
+    image: doc2,
     about: "Dr. Jane Smith specializes in skincare and cosmetic treatments, providing innovative solutions for various skin conditions. Her personalized care and dedication to patients set her apart."
   },
   {
@@ -31,7 +31,7 @@ const doctors = [
     location: "Chicago, IL",
     contact: "emily.johnson@example.com",
     rating: 4.8,
-    image: "https://via.placeholder.com/150",
+    image: doc3,
     about: "Dr. Emily Johnson is a compassionate pediatrician who has been caring for children for over 12 years. She is trusted for her holistic and family-oriented treatment."
   },
   {
@@ -42,7 +42,7 @@ const doctors = [
     location: "Houston, TX",
     contact: "mark.brown@example.com",
     rating: 4.6,
-    image: "https://via.placeholder.com/150",
+    image: doc4,
     about: "Dr. Mark Brown is an expert in treating neurological disorders, offering advanced care for patients with epilepsy, migraines, and movement disorders."
   },
   {
@@ -53,7 +53,7 @@ const doctors = [
     location: "Phoenix, AZ",
     contact: "susan.davis@example.com",
     rating: 4.9,
-    image: "https://via.placeholder.com/150",
+    image: doc5,
     about: "Dr. Susan Davis has over two decades of experience in oncology, dedicated to helping cancer patients with the latest treatments and compassionate care."
   },
   {
@@ -64,7 +64,7 @@ const doctors = [
     location: "Philadelphia, PA",
     contact: "robert.wilson@example.com",
     rating: 4.4,
-    image: "https://via.placeholder.com/150",
+    image: doc6,
     about: "Dr. Robert Wilson is a skilled orthopedic surgeon specializing in joint replacements, sports injuries, and minimally invasive surgeries."
   },
   {
@@ -75,7 +75,7 @@ const doctors = [
     location: "San Antonio, TX",
     contact: "michael.clark@example.com",
     rating: 4.3,
-    image: "https://via.placeholder.com/150",
+    image: doc7,
     about: "Dr. Michael Clark provides exceptional urological care, specializing in treatments for kidney stones, prostate issues, and urinary conditions."
   },
   {
@@ -86,7 +86,7 @@ const doctors = [
     location: "San Diego, CA",
     contact: "laura.martinez@example.com",
     rating: 4.2,
-    image: "https://via.placeholder.com/150",
+    image: doc8,
     about: "Dr. Laura Martinez is a trusted gynecologist offering comprehensive women’s health services, from preventive care to family planning and prenatal care."
   },
   {
@@ -97,7 +97,7 @@ const doctors = [
     location: "Dallas, TX",
     contact: "steven.white@example.com",
     rating: 4.5,
-    image: "https://via.placeholder.com/150",
+    image:doc9,
     about: "Dr. Steven White is a leading endocrinologist with expertise in diabetes management, thyroid disorders, and hormone imbalances."
   },
   {
@@ -108,10 +108,10 @@ const doctors = [
     location: "San Jose, CA",
     contact: "jessica.lee@example.com",
     rating: 4.7,
-    image: "https://via.placeholder.com/150",
+    image: doc10,
     about: "Dr. Jessica Lee is a compassionate psychiatrist dedicated to improving mental health and helping patients manage anxiety, depression, and other disorders."
   }
-]
+];
 
 import background from './background.png';
 import background1 from './background1.jpg';

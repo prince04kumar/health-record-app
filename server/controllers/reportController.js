@@ -11,8 +11,8 @@ const addfile = async (req, res) => {
         console.log(req.file);
 
         const newFile = new File({
-            filename: req.file.filename,
-            filepath: req.file.path,
+            filename: req.file.originalname,
+            filedata: req.file.buffer,
             filetype: req.file.mimetype,
             note: req.body.note,
             userId: req.user._id,
@@ -52,12 +52,8 @@ const downloadFile = async (req, res) => {
             return res.status(404).send('File not found');
         }
 
-        const filePath = path.join(__dirname, '..', 'uploads', req.params.filename);
-        if (fs.existsSync(filePath)) {
-            res.download(filePath);
-        } else {
-            res.status(404).send('File not found');
-        }
+        res.set('Content-Type', file.filetype);
+        res.send(file.filedata);
     } catch (error) {
         res.status(500).send('Server error: ' + error.message);
     }
