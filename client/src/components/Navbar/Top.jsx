@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, MapPin, ShoppingCart, User, ChevronDown, Menu, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom'
+import TopCho from '../HeroCom/TopCho';
 
 const Top = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,24 +67,11 @@ const Top = () => {
             </div>
           </div>
 
-          {/* Search Bar */}
-          {/* <div className="hidden md:flex flex-1 max-w-2xl mx-6">
-            <div className="relative w-full">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Medicine and healthcare items"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition-all duration-200"
-              />
-            </div>
-          </div> */}
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {/* Services Dropdown */}
-            <div className="relative">
+            <div className="relative ">
               <button
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
@@ -116,14 +104,12 @@ const Top = () => {
             {/* Other Nav Items */}
             <a href="#" className="text-gray-600 hover:text-blue-600 transition-colors duration-200">Offers</a>
             <div className="flex items-center space-x-4 rounded-3xl">
-              {/* <ShoppingCart className="w-6 h-6 text-gray-600 hover:text-blue-600 cursor-pointer transition-colors duration-200" />
-              <User className="w-6 h-6 text-gray-600 hover:text-blue-600 cursor-pointer transition-colors duration-200" /> */}
               <button className="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-colors duration-200 flex items-center justify-around gap-2" onClick={linktomap} > <MapPin className="w-4 h-4" />Nearby Cares</button>
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden pt-4"> 
+          <div className="md:hidden pt-4 "> 
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-md text-gray-600 hover:text-blue-600 focus:outline-none transition-colors duration-200 absolute right-4 top-8"
@@ -140,20 +126,14 @@ const Top = () => {
 
       {/* Mobile menu */}
       <div 
-        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}
+        className={`md:hidden overflow-hidden absolute top-16 right-5 z-20 rounded-lg transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'}`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t transform transition-transform duration-300">
           {/* Mobile Search */}
           <div className="px-3 py-2">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Medicine and healthcare items"
-                className="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition-all duration-200"
-              />
+             
+           
             </div>
           </div>
 
@@ -182,6 +162,7 @@ const Top = () => {
        
         </div>
       </div>
+      
     </nav>
   );
 };
