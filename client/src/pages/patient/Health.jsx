@@ -6,8 +6,12 @@ import {
   BeakerIcon,
   DevicePhoneMobileIcon,
 } from "@heroicons/react/24/solid";
+import { Doughnut } from "react-chartjs-2"; // Import Doughnut
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'; // Import required elements
 import Footsteps from "../healthcomp/Footsteps";
 import Heart from "../healthcomp/Heart";
+
+ChartJS.register(ArcElement, Tooltip, Legend); // Register elements
 
 const HealthDashboard = () => {
   const healthStats = [
@@ -124,28 +128,38 @@ const HealthDashboard = () => {
           transition={{ duration: 0.5 }}
         >
           <Heart />
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Calendar</h2>
-          <ul>
-            {appointments.map((appointment) => (
-              <li
-                key={appointment.id}
-                className={`mb-4 p-4 rounded-md shadow-sm ${appointment.color}`}
-              >
-                <div className="flex justify-between">
-                  <span className="font-bold text-gray-800">
-                    {appointment.time}
-                  </span>
-                  <span className="text-sm text-gray-600">
-                    {appointment.location}
-                  </span>
-                </div>
-                <h3 className="text-lg font-medium text-gray-900">
-                  {appointment.title}
-                </h3>
-                <p className="text-sm text-gray-600">{appointment.doctor}</p>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-col w-[30%] bg-white p-4 rounded shadow">
+          <h2 className="text-lg font-semibold mb-2">Health Score</h2>
+          <div className="flex justify-center items-center">
+            <div className="relative w-40 h-40">
+              <Doughnut
+                data={{
+                  labels: ['Score'],
+                  datasets: [
+                    {
+                      data: [91, 9],
+                      backgroundColor: ['#F39C12', '#D3D3D3'],
+                    },
+                  ],
+                }}
+                options={{
+                  cutout: '70%',
+                  plugins: {
+                    tooltip: { enabled: false },
+                    legend: { display: false },
+                  },
+                }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-green-600">
+                91
+              </div>
+            </div>
+          </div>
+          <p className="mt-2 text-center text-green-600">Excellent</p>
+          <p className="text-center text-sm text-gray-600 mt-1">
+            Health Score reflects the proportion of internal URLs on your site that don't have errors.
+          </p>
+        </div>
         </motion.div>
 
         {/* Right Section */}

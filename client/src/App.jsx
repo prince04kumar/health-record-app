@@ -5,7 +5,6 @@ import Login from './services/Patientlogin';
 import PatientDashboard from './pages/patient/PatientDashboard';
 // import Application from './pages/doctors/Application';
 import DoctorsLogin from './services/DoctorsLogin';
-import AdminLogin from './services/AdminLogin';
 import ProtectedRoute from './components/protectedRoute';
 import Doctors from './pages/patient/Doctors';
 import Report from './pages/patient/Report';
