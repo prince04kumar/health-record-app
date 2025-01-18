@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import ContactUs from './components/ContactUs';
 import AppointmentMake from './pages/patient/AppointmentMake';
 import AppointmentDisplay from './pages/patient/Appointmentdisplay';
+import Medications from './pages/patient/Medications';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="reports" element={<Report/>} />
           <Route path="appointmentMake" element={<AppointmentMake/>} />
           <Route path="appointmentdisplay" element={<AppointmentDisplay/>} />
+          <Route path="medications" element={<Medications/>} />
           <Route path="profile" element={<Profile/>} />
           <Route path="health" element = {<Health/>} />
         </Route>
