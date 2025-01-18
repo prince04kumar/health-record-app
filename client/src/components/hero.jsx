@@ -28,12 +28,13 @@ const CampaignCard = ({ image, title, category, viewMore }) => (
   </div>
 );
 
-const enterLogin = () => {
-  
-}
+
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const enterLogin = () => {
+    navigate("/patient-login")
+ }
   const campaigns = [
     {
       image: "/recordimage",
@@ -82,8 +83,9 @@ const LandingPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
+                onClick={enterLogin}
               >
-                Donate now!
+                Login now!
               </motion.button>
               <motion.button
                 className="border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:border-gray-400 transition-colors"
