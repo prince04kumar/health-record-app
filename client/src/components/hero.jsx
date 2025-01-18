@@ -104,7 +104,7 @@ const LandingPage = () => {
           {/* Right Column - Cards and Illustrations */}
           <div className="relative">
             {/* Cards Stack */}
-            <div className="relative z-10 space-y-4 max-w-96 mx-auto ">
+            <div className="relative z-1 space-y-4 max-w-96 mx-auto ">
               {campaigns.map((campaign, index) => (
                 <CampaignCard key={index} {...campaign} />
               ))}

@@ -9,7 +9,7 @@ const doctors = [
     location: "New York, NY",
     contact: "john.doe@example.com",
     rating: 4.5,
-    image: "https://via.placeholder.com/150",
+    image: "./doc1.png",
     about: "Dr. John Doe is a highly skilled cardiologist with a decade of experience treating complex heart conditions. He is known for his patient-centered approach and advanced diagnostic skills."
   },
   {
