@@ -49,7 +49,7 @@ const Top = () => {
   ];
 
   return (
-    <nav className="bg-[#91BCF3] shadow-sm h-20 flex items-center justify-between"> 
+    <nav className="bg-[#91BCF3] shadow-sm h-24 flex items-center justify-between"> 
       <div className="w-full  px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}

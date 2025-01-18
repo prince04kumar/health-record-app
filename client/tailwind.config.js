@@ -9,6 +9,9 @@ export default {
       colors: {
         customBlue: '#076194',
       },
+      fontFamily: {
+        lora: ['Lora', 'serif'],
+      },
     },
   },
   plugins: [],

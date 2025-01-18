@@ -21,7 +21,7 @@ const TopCho = () => {
 
   return (
     <div className='flex h-full flex-col items-center justify-center'>
-      <h1 className='md:text-9xl text-4xl font-bold text-fuchsia-600 m-7'>Top Suggested</h1>
+      <h1 className='md:text-9xl text-6xl font-bold text-blue-900 m-7 lora'>Top Suggested</h1>
       <div className='flex flex-col md:flex-row justify-center'>
         {filteredDoctors.map((doc, index) => {
           const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });

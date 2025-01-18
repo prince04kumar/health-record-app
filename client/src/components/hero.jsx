@@ -37,30 +37,30 @@ const LandingPage = () => {
  }
   const campaigns = [
     {
-      image: "/recordimage",
+      image: "/recordimg.webp",
       title: "Access Your Record Anywhere Anytime",
-      category: "Education",
+      category: "Reports",
     },
     {
-      image: "/api/placeholder/160/128",
-      title: "Provide Urgent Medical Attention",
-      category: "Physical Healthy",
+      image: "/appointmentimg.jpg",
+      title: "Connect Your Doctor With Ease",
+      category: "Appointment",
     },
     {
-      image: "/api/placeholder/160/128",
-      title: "Nourishing Hope: Serving Food",
-      category: "Food Security",
+      image: "https://media.istockphoto.com/id/1457383674/vector/hospital-location-pin-icon-cross-plus-geotag-location-pin-medical.jpg?s=612x612&w=0&k=20&c=sM6uRfeWFg3Qiegn9xPh-K1QI9gVPueG1_BWHFmVTuc=",
+      title: "Get Fastest treatment from your Nearby hospital",
+      category: "Nearby Locater",
     },
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-20 ">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
+      <div className="max-w-7xl mx-auto px-4 py-12 md:py-28"> 
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20 md:mb-40">
           {/* Left Column - Text Content */}
           <div className="space-y-6 relative lg:-left-20 lg:-top-10">
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 "
+              className="text-4xl md:text-5xl lg:text-7xl font-bold text-gray-900 dm-serif-display-regular"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
