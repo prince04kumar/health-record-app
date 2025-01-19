@@ -152,36 +152,36 @@ const updateUser = async (req, res) => {
         res.status(500).json({ message: "Server error", success: false });
     }
 };
-    
+
 const uploadImage = async (req, res) => {
   console.log("Received image upload request"); // Debugging log
-//   try {
-//     const userId = req.user._id;
-//     const { profileImage } = req.body;  // Match the field name from frontend
+  try {
+    const userId = req.user._id;
+    const { profileImage } = req.body;  // Match the field name from frontend
 
-//     if (!profileImage) {
-//       return res.status(400).json({ message: "Image data is required" });
-//     }
+    if (!profileImage) {
+      return res.status(400).json({ message: "Image data is required" });
+    }
 
-//     console.log('Updating user image for userId:', userId); // Debugging log
+    console.log('Updating user image for userId:', userId); // Debugging log
 
-//     const updatedUser = await UserModel.findByIdAndUpdate(
-//       userId,
-//       { profileImage },
-//       { new: true }
-//     ).select('-password');
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userId,
+      { profileImage },
+      { new: true }
+    ).select('-password');
 
-//     if (!updatedUser) {
-//       return res.status(404).json({ message: "User not found", success: false });
-//     }
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found", success: false });
+    }
 
-//     console.log('User image updated successfully:', updatedUser); // Debugging log
+    console.log('User image updated successfully:', updatedUser); // Debugging log
 
-//     res.json({ message: "User updated successfully", success: true, profileImage: updatedUser.profileImage });
-//   } catch (error) {
-//     console.error('Error updating user image:', error); // Debugging log
-//     res.status(500).json({ message: "Server error", success: false });
-//   }
+    res.json({ message: "User updated successfully", success: true, profileImage: updatedUser.profileImage });
+  } catch (error) {
+    console.error('Error updating user image:', error); // Debugging log
+    res.status(500).json({ message: "Server error", success: false });
+  }
 };
 
 const getImage = async (req, res) => {

@@ -62,16 +62,16 @@ const UserProfileForm = () => {
   
       console.log('Uploading image:', base64); // Debugging log
   
-      // const imgres = await axios.put(
-      //   'http://localhost:4000/api/user/patient-dashboard/profile/updateimage',
-      //   { profileImage: base64 }, // Send as an object with a profileImage field
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${localStorage.getItem('token')}`,
-      //     },
-      //   }
-      // );
-      //console.log('Image upload response:', imgres.data); // Debugging log
+      const imgres = await axios.put(
+        'http://localhost:4000/api/user/patient-dashboard/profile/updateimage',
+        { profileImage: base64 }, // Send as an object with a profileImage field
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      console.log('Image upload response:', imgres.data); // Debugging log
   
       if (imgres.data.success) {
         alert('Image uploaded successfully');
