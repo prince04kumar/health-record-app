@@ -1,12 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Appointmentdisplay = () => {
-  return (
-   <div className="">
-    
+  return <div className=""></div>;
+};
 
-   </div>
-  )
-}
-
-export default Appointmentdisplay
+export default Appointmentdisplay;
