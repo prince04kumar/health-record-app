@@ -16,7 +16,9 @@ userRouter.get('/patient-dashboard/reports/download/:filename', auth, downloadFi
 userRouter.delete('/patient-dashboard/reports/delete/:filename', auth, deleteFile);
 userRouter.get('/patient-dashboard/profile', auth, getUserData);
 userRouter.put('/patient-dashboard/profile/updateuser', auth, updateUser);
-userRouter.put('/patient-dashboard/profile/updateimage', auth, uploadImage);
+
+//updata and get image
+userRouter.put('/patient-dashboard/profile/updateuser', auth, uploadImage);
 userRouter.get('/patient-dashboard/profile/profileimage',auth , getImage );
 
 // Section routes

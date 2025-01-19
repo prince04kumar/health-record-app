@@ -53,8 +53,8 @@ export default function ModelViewer() {
         </Suspense>
         <OrbitControls enableRotate={false} enableZoom={false} />
       </Canvas>
-      <div style={{ position:"absolute", width: '70%', height: '20px', backgroundColor: '#ccc', marginTop: '',borderRadius: "20px ", left:"20vw" ,bottom:"10vh" }}>
-        <div style={{ width: `${progress}%`, height: '100%', backgroundColor: '#76c7c0' , borderRadius: "20px"}}></div>
+      <div style={{ position:"absolute", width: '70%', height: '20px', backgroundColor: '#ccc', marginTop: '',borderRadius: "20px ", left:"20vw" ,bottom:"46vh" }}>
+        <div style={{ width: `${progress}%`, height: '100%', backgroundColor: '#1b58fe' , borderRadius: "20px"}}></div>
         <div style={{ textAlign: 'center' }}>{progress}%</div>
       </div>
       

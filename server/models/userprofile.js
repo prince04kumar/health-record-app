@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
 const userProfileSchema = new mongoose.Schema({
-    // ...existing code...
+   
     profileImage: {
         type: String,
-        default:"Upload Image",
-    }
-    // ...existing code...
+        default:"uploadimage",
+    },
+   user: {
+       type: mongoose.Schema.Types.ObjectId,
+       ref: 'UserModel',
+       required: true
+     }
+   
 });
 
 const UserProfile = mongoose.model('UserProfile', userProfileSchema);

@@ -38,6 +38,9 @@ const addUser = async (req, res) => {
         const newUser = new UserModel(userData);
         await newUser.save();
 
+        // Create user profile
+        const userProfile = new UserProfile({ user: newUser._id });
+        await userProfile.save();
 
         // Generate JWT token
         const token = jwt.sign({ _id: newUser._id, email: newUser.email }, process.env.jwtSecret);
@@ -106,7 +109,7 @@ const getUserData = async (req, res) => {
             return res.status(404).json({ message: "User not found", success: false });
         }
         res.json({ success: true, user });
-       // console.log(user);
+    
     } catch (error) {
         console.error(`Error fetching user data: ${error.message}`);
         res.status(500).json({ message: "Server error", success: false });
@@ -156,17 +159,17 @@ const uploadImage = async (req, res) => {
             return res.status(400).json({ message: "Profile image is required" });
         }
 
-        const updatedUser = await UserProfile.findByIdAndUpdate(
-            userId,
+        const updatedUserProfile = await UserProfile.findOneAndUpdate(
+            { user: userId },
             { profileImage },
             { new: true, runValidators: true }
-        ).select('-password');
+        );
 
-        if (!updatedUser) {
+        if (!updatedUserProfile) {
             return res.status(404).json({ message: "User not found", success: false });
         }
 
-        res.json({ message: "Profile image uploaded successfully", success: true, user: updatedUser });
+        res.json({ message: "Profile image uploaded successfully", success: true, user: updatedUserProfile });
     } catch (error) {
         console.error(`Error uploading profile image: ${error.message}`);
         res.status(500).json({ message: "Server error", success: false });
@@ -174,19 +177,18 @@ const uploadImage = async (req, res) => {
 };
 
 const getImage = async (req, res) => {
-    console.log("succcess")
-    console.log("userId:", req.user?._id)
+  //  console.log("succcess")
+   
+    const userId = req.user._id;
+    const user = await UserProfile.findOne({ user: req.user._id }).select('profileImage');
+  //  console.log(user)
+    if (!user) {
+       
+        return res.status(404).json({ message: "User not found", success: false });
+    }
+    res.json({ success: true, profileImage: user.profileImage });
     try {
-        const userId = req.user._id;
-        
-        // Try different search methods
-        const userByString = await UserProfile.findOne({ _id: userId.toString() });
-        console.log("Found by string:", userByString);
-        
-        const userById = await UserProfile.findById(userId);
-        console.log("Found by ID:", userById);
-        
-        // Rest of your code...
+       
     } catch (error) {
         console.error(`Error:`, error);
         res.status(500).json({ message: "Server error", success: false });

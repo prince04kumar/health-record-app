@@ -43,7 +43,7 @@ const LandingPage = () => {
       image: "/recordimg.webp",
       title: "Access Your Record Anywhere Anytime",
       category: "Reports",
-    },
+    },  
     {
       image: "/appointmentimg.jpg",
       title: "Connect Your Doctor With Ease",

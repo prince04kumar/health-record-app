@@ -25,6 +25,7 @@ const AppointmentMake = () => {
     (async function () {
       const cal = await getCalApi({ namespace: "15min" });
       cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+      console.log(cal);
     })();
   }, []);
   const handleSubmit = async (e) => {

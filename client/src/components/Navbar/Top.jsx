@@ -8,6 +8,19 @@ const Top = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [location, setLocation] = useState('Fetching location...');
   const navigate = useNavigate();
+  const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);
+  const [visible, setVisible] = useState(true);
+
+  const handleScroll = () => {
+    const currentScrollPos = window.pageYOffset;
+    setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+    setPrevScrollPos(currentScrollPos);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos, visible, handleScroll]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -49,14 +62,14 @@ const Top = () => {
   ];
 
   return (
-    <nav className="bg-[#F9FAFB] shadow-sm h-24 flex items-center justify-between"> 
+    <nav className={`bg-[#F9FAFB] shadow-[0_4px_2px_-2px_#1b58fe] h-24 flex items-center justify-between z-20 transition-transform duration-300 ${visible ? 'translate-y-0' : '-translate-y-full'}`}> 
       <div className="w-full  px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-4">
             <div className="flex ">
               <img src="/logo.jpg" alt="Logo" className="h-10 w-10 rounded-full mr-2" />
-              <span className="text-2xl font-bold text-blue-900 inline-block">HEALTH CARE</span>
+              <span className="text-4xl font-bold text-blue-900 inline-block font-serif">HEALTH CARE</span>
             </div>
             
             {/* Location Selector */}
