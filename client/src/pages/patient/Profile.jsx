@@ -36,44 +36,53 @@ const UserProfileForm = () => {
           },
         }
       );
-      setBase64Image(resImage.data.profileImage);
+      setBase64Image(resImage.data.user.profileImage);
+     // console.log(resImage.data.user.profileImage);
     } catch (err) {
       console.log(err);
     }
   };
-
   const handleImageUpload = async (e) => {
     try {
       const file = e.target.files[0];
-
+  
       if (!file) {
         setError('Please select an image file.');
         return;
       }
-
+  
       if (!file.type.startsWith('image/')) {
         setError('Please upload an image file (PNG, JPG, etc.)');
         return;
       }
-
+  
       const base64 = await convertToBase64(file);
       setBase64Image(base64);
       setError('');
-
-      const imgres = await axios.put(
-        'http://localhost:4000/api/user/patient-dashboard/profile/updateimage',
-        { profileImage: base64 },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-      console.log(imgres.data);
+  
+      console.log('Uploading image:', base64); // Debugging log
+  
+      // const imgres = await axios.put(
+      //   'http://localhost:4000/api/user/patient-dashboard/profile/updateimage',
+      //   { profileImage: base64 }, // Send as an object with a profileImage field
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${localStorage.getItem('token')}`,
+      //     },
+      //   }
+      // );
+      //console.log('Image upload response:', imgres.data); // Debugging log
+  
+      if (imgres.data.success) {
+        alert('Image uploaded successfully');
+      }
     } catch (err) {
-      console.log(err);
+      setError('Failed to upload image');
+      console.error('Error uploading image:', err); // Debugging log
     }
   };
+
+
 
   const getUserData = async () => {
     try {
@@ -139,9 +148,9 @@ const UserProfileForm = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-6">
-        <h2 className="text-lg font-bold mb-4">basic detail</h2>
+        <h2 className="text-lg font-bold mb-4">Your Profile</h2>
          <div className="m-8 flex flex-col justify-center items-center gap-6"> <div className="rounded-ful">
-            <img src={base64Image} alt="" />
+            <img src={base64Image} alt="" className='max-h-40' />
           </div>
           <input
             type="file"

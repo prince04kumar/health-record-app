@@ -8,7 +8,7 @@ const userProfileSchema = new mongoose.Schema({
     },
    user: {
        type: mongoose.Schema.Types.ObjectId,
-       ref: 'UserModel',
+       ref: 'user',
        required: true
      }
    

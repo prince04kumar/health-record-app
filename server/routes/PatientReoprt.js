@@ -18,7 +18,7 @@ userRouter.get('/patient-dashboard/profile', auth, getUserData);
 userRouter.put('/patient-dashboard/profile/updateuser', auth, updateUser);
 
 //updata and get image
-userRouter.put('/patient-dashboard/profile/updateuser', auth, uploadImage);
+userRouter.get('/patient-dashboard/profile/updateimage', auth, uploadImage);
 userRouter.get('/patient-dashboard/profile/profileimage',auth , getImage );
 
 // Section routes

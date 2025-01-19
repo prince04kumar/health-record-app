@@ -107,7 +107,10 @@ const getUserData = async (req, res) => {
         const user = await UserModel.findById(userId).select('-password');
         if (!user) {
             return res.status(404).json({ message: "User not found", success: false });
+
         }
+       // console.log("success")
+       // console.log(user)
         res.json({ success: true, user });
     
     } catch (error) {
@@ -149,50 +152,57 @@ const updateUser = async (req, res) => {
         res.status(500).json({ message: "Server error", success: false });
     }
 };
-
+    
 const uploadImage = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        const { profileImage } = req.body;
+  console.log("Received image upload request"); // Debugging log
+//   try {
+//     const userId = req.user._id;
+//     const { profileImage } = req.body;  // Match the field name from frontend
 
-        if (!profileImage) {
-            return res.status(400).json({ message: "Profile image is required" });
-        }
+//     if (!profileImage) {
+//       return res.status(400).json({ message: "Image data is required" });
+//     }
 
-        const updatedUserProfile = await UserProfile.findOneAndUpdate(
-            { user: userId },
-            { profileImage },
-            { new: true, runValidators: true }
-        );
+//     console.log('Updating user image for userId:', userId); // Debugging log
 
-        if (!updatedUserProfile) {
-            return res.status(404).json({ message: "User not found", success: false });
-        }
+//     const updatedUser = await UserModel.findByIdAndUpdate(
+//       userId,
+//       { profileImage },
+//       { new: true }
+//     ).select('-password');
 
-        res.json({ message: "Profile image uploaded successfully", success: true, user: updatedUserProfile });
-    } catch (error) {
-        console.error(`Error uploading profile image: ${error.message}`);
-        res.status(500).json({ message: "Server error", success: false });
-    }
+//     if (!updatedUser) {
+//       return res.status(404).json({ message: "User not found", success: false });
+//     }
+
+//     console.log('User image updated successfully:', updatedUser); // Debugging log
+
+//     res.json({ message: "User updated successfully", success: true, profileImage: updatedUser.profileImage });
+//   } catch (error) {
+//     console.error('Error updating user image:', error); // Debugging log
+//     res.status(500).json({ message: "Server error", success: false });
+//   }
 };
 
 const getImage = async (req, res) => {
   //  console.log("succcess")
    
+  try {
     const userId = req.user._id;
-    const user = await UserProfile.findOne({ user: req.user._id }).select('profileImage');
-  //  console.log(user)
+    const user = await UserModel.findById(userId).select('-password');
+    
     if (!user) {
-       
         return res.status(404).json({ message: "User not found", success: false });
+
     }
-    res.json({ success: true, profileImage: user.profileImage });
-    try {
-       
-    } catch (error) {
-        console.error(`Error:`, error);
-        res.status(500).json({ message: "Server error", success: false });
-    }
+   // console.log("success")
+
+    res.json({ success: true, user });
+
+} catch (error) {
+    console.error(`Error fetching user data: ${error.message}`);
+    res.status(500).json({ message: "Server error", success: false });
+}
 };
 
 module.exports = { addUser, user, getUserData, updateUser, uploadImage, getImage };
