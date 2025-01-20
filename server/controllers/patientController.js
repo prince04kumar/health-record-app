@@ -47,8 +47,8 @@ const addUser = async (req, res) => {
 
         // Send success response with token
         res.json({ message: "User added successfully", success: true, token });
-        // console.log("User added successfully", token);
-       // console.log("user id", newUser._id);
+        //   ("User added successfully", token);
+       //   ("user id", newUser._id);
 
     } catch (error) {
         console.error(`Error adding a new User: ${error.message}`);
@@ -76,13 +76,13 @@ const user = (req, res) => {
         //find user by email
         UserModel.findOne({ email }).then((user) => {
             if (!user) {
-                console.log("Invalid email or password");
+                  ("Invalid email or password");
                 return res.json({ message: "Invalid email or password", success: false });
             }
             //compare password
             bcrypt.compare(password, user.password).then((isMatch) => {
                 if (!isMatch) {
-                    console.log("Invalid email or password");
+                      ("Invalid email or password");
                     return res.json({ message: "Invalid email or password", success: false });
                 }
                 //create token
@@ -90,7 +90,7 @@ const user = (req, res) => {
                 const token = jwt.sign({ _id: user._id, email: user.email }, process.env.jwtSecret);
                 res.json({ message: "Login successful", success: true, token: token });
                 
-               // console.log("user id", user._id);
+               //   ("user id", user._id);
 
             })
         })
@@ -109,8 +109,8 @@ const getUserData = async (req, res) => {
             return res.status(404).json({ message: "User not found", success: false });
 
         }
-       // console.log("success")
-       // console.log(user)
+       //   ("success")
+       //   (user)
         res.json({ success: true, user });
     
     } catch (error) {
@@ -154,7 +154,7 @@ const updateUser = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
-  console.log("Received image upload request"); // Debugging log
+
   try {
     const userId = req.user._id;
     const { profileImage } = req.body;  // Match the field name from frontend
@@ -163,7 +163,7 @@ const uploadImage = async (req, res) => {
       return res.status(400).json({ message: "Image data is required" });
     }
 
-    console.log('Updating user image for userId:', userId); // Debugging log
+   //   ('Updating user image for userId:', userId); // Debugging log
 
     const updatedUser = await UserModel.findByIdAndUpdate(
       userId,
@@ -175,7 +175,7 @@ const uploadImage = async (req, res) => {
       return res.status(404).json({ message: "User not found", success: false });
     }
 
-    console.log('User image updated successfully:', updatedUser); // Debugging log
+   //   ('User image updated successfully:', updatedUser); // Debugging log
 
     res.json({ message: "User updated successfully", success: true, profileImage: updatedUser.profileImage });
   } catch (error) {
@@ -185,7 +185,7 @@ const uploadImage = async (req, res) => {
 };
 
 const getImage = async (req, res) => {
-  //  console.log("succcess")
+  //    ("succcess")
    
   try {
     const userId = req.user._id;
@@ -195,7 +195,7 @@ const getImage = async (req, res) => {
         return res.status(404).json({ message: "User not found", success: false });
 
     }
-   // console.log("success")
+   //   ("success")
 
     res.json({ success: true, user });
 

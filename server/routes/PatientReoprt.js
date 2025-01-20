@@ -15,7 +15,7 @@ userRouter.get('/patient-dashboard/reports', auth, getAllReports);
 userRouter.get('/patient-dashboard/reports/download/:filename', auth, downloadFile);
 userRouter.delete('/patient-dashboard/reports/delete/:filename', auth, deleteFile);
 userRouter.get('/patient-dashboard/profile', auth, getUserData);
-userRouter.put('/patient-dashboard/profile/updateuser', auth, updateUser);
+userRouter.put('/patient-dashboard/profile/updateuser', auth, upload.single('file'), updateUser);
 
 //updata and get image
 userRouter.put('/patient-dashboard/profile/updateimage', auth, uploadImage);

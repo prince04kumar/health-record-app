@@ -6,12 +6,14 @@ const patientRouter = require('./routes/PatientReoprt');
 const path = require('path');
 const { connectDB } = require('./config/mongo');
 const { connectCloudinary } = require('./config/cloudinary');
-
+const bodyParser = require('body-parser');
 
 
 //app config
 const app = express();
 const port = process.env.PORT || 4000;
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 
 require('dotenv').config();
@@ -20,11 +22,18 @@ require('dotenv').config();
 // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:5173' || 'http://localhost:5174', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }));
+const corsOptions = {
+    origin: function (origin, callback) {
+        const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+};
+app.use(cors(corsOptions));
 
 connectDB();
 // connectCloudinary();

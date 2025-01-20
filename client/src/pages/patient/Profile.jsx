@@ -60,7 +60,7 @@ const UserProfileForm = () => {
       setBase64Image(base64);
       setError('');
   
-      console.log('Uploading image:', base64); // Debugging log
+    //  console.log('Uploading image:', base64); // Debugging log
   
       const imgres = await axios.put(
         'http://localhost:4000/api/user/patient-dashboard/profile/updateimage',
@@ -71,7 +71,7 @@ const UserProfileForm = () => {
           },
         }
       );
-      console.log('Image upload response:', imgres.data); // Debugging log
+      //console.log('Image upload response:', imgres.data); // Debugging log
   
       if (imgres.data.success) {
         alert('Image uploaded successfully');

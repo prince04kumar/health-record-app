@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
         const decoded = jwt.verify(token, process.env.jwtSecret);
         
         const user = await User.findOne({ _id: decoded._id});
-        console.log(user);
+       // console.log(user);
         
         if (!user) {
             throw new Error('User not found.');
