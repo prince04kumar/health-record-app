@@ -6,6 +6,7 @@ import TopCho from './HeroCom/TopCho';
 import { useInView } from 'react-intersection-observer';
 import Footer from './Footer';
 import World from './HeroCom/World';
+import News from './HeroCom/News';
 
 const CampaignCard = ({ image, title, category, viewMore }) => (
   <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 mb-4 border-2">
@@ -127,6 +128,7 @@ const LandingPage = () => {
       <div> 
       <TopCho/>
       <World/>
+      <News/>
       </div>
       <Footer />
     </div>
