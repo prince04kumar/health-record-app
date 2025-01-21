@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState ,useContext} from 'react';
 import axios from 'axios';
+import { UserContext } from '../../UserContext';
 
 const ZoomMeetingsDisplay = () => {
+  const {userEmail} = useContext(UserContext);
+  console.log(userEmail);
   const [bookingReferences, setBookingReferences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +13,8 @@ const ZoomMeetingsDisplay = () => {
     const fetchMeetings = async () => {
       try {
         let bookingIds = [];
-        const userEmail = localStorage.getItem('userEmail') ;
+        
+        console.log(userEmail);
         
         // First API call to get attendees
         const attendeesResponse = await axios.get(
@@ -35,8 +39,7 @@ const ZoomMeetingsDisplay = () => {
         );
 
         setBookingReferences(filteredBookings);
-        console.log(bookingsResponse);
-        console.log(bookingReferences);
+       
         
         console.log('Filtered Bookings:', filteredBookings); // Debugging line
         setLoading(false);

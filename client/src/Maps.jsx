@@ -53,7 +53,7 @@ const Maps = () => {
       })
       .then((response) => {
         setPlaces(response.data.elements); // Set nearby places to state
-        console.log(response.data.elements); // Log the entire places array
+       // console.log(response.data.elements); // Log the entire places array
       })
       .catch((error) => {
         console.log('Error fetching places:', error);

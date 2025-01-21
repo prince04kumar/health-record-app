@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useContext} from 'react';
 import axios from 'axios';
+import { UserContext } from '../../UserContext';
 
 const UserProfileForm = () => {
-  const [formData, setFormData] = useState({
+  const { userEmail, setUserEmail } = useContext(UserContext);  const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -86,6 +87,7 @@ const UserProfileForm = () => {
 
   const getUserData = async () => {
     try {
+
       const response = await axios.get(
         'http://localhost:4000/api/user/patient-dashboard/profile',
         {
@@ -104,6 +106,8 @@ const UserProfileForm = () => {
         address: response.data.user.address || '',
         dob: response.data.user.dob || '',
       });
+      setUserEmail(response.data.user.email);
+      console.log("profile" , userEmail);
     } catch (error) {
       console.error('Error fetching user data:', error);
     }
