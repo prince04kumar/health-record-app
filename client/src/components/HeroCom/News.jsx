@@ -6,7 +6,8 @@ const News = () => {
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
-        const apiUrl = 'https://newsapi.org/v2/top-headlines?category=health&apiKey=cec3db3e7bd54dfd95cc3c78ac071281';
+        const apiKey = "cec3db3e7bd54dfd95cc3c78ac071281"
+        const apiUrl = `https://newsapi.org/v2/top-headlines?category=health&country=us&apiKey=${apiKey}`;
         
         fetch(apiUrl)
           .then(response => response.json())

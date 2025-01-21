@@ -139,6 +139,8 @@ const UserProfileForm = () => {
         }
       );
       alert('Profile updated successfully');
+      // Store email in localStorage
+      localStorage.setItem('userEmail', formData.email);
     } catch (error) {
       console.error('Error updating profile:', error);
       alert('Failed to update profile');

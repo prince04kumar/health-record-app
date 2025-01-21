@@ -18,7 +18,7 @@ const SidePanel = () => {
 
   return (
     <div className="bg-gradient-to-b min-h-screen from-blue-500 to-blue-700 text-white h-screen sm:w-64 p-6 shadow-lg">
-      <h2 className="text-2xl font-bold mb-8 hidden sm:block">Patient Dashboard</h2>
+      <h2 className="text-2xl font-lora font-bold mb-8 hidden sm:block">Patient Dashboard</h2>
       <nav>
         <ul className="space-y-4">
           {menuItems.map((item, index) => (
