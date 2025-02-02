@@ -9,4 +9,8 @@ export default defineConfig({
     }
   },
   plugins: [react()],
+  preview: {
+    port: process.env.PORT || 3000,  // Bind to Render's port
+    host: '0.0.0.0'                  // Accept connections from Render
+  }
 })
