@@ -14,7 +14,7 @@ const Report = () => {
 
   const allReports = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/user/patient-dashboard/reports', {
+      const response = await axios.get('/api/user/patient-dashboard/reports', {
         headers: {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
@@ -28,7 +28,7 @@ const Report = () => {
 
   const fetchSections = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/user/patient-dashboard/sections', {
+      const response = await axios.get('/api/user/patient-dashboard/sections', {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
@@ -47,7 +47,7 @@ const Report = () => {
 
   const handleDownload = async (filename) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/user/patient-dashboard/reports/download/${filename}`, {
+      const response = await axios.get(`/api/user/patient-dashboard/reports/download/${filename}`, {
         responseType: 'blob',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -80,7 +80,7 @@ const Report = () => {
         console.log('Uploading file:', selectedFile.name);
 
         const response = await axios.post(
-          'http://localhost:4000/api/user/patient-dashboard/reports/upload',
+          '/api/user/patient-dashboard/reports/upload',
           formData,
           {
             headers: {
@@ -111,7 +111,7 @@ const Report = () => {
   const handleDelete = (filename) => {
     const deleteReport = async () => {
       try {
-        const deleteReport = await axios.delete(`http://localhost:4000/api/user/patient-dashboard/reports/delete/${filename}`, {
+        const deleteReport = await axios.delete(`/api/user/patient-dashboard/reports/delete/${filename}`, {
           headers: {
               'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
@@ -134,7 +134,7 @@ const Report = () => {
   const handleCreateSection = async () => {
     if (newSectionName.trim() !== '') {
       try {
-        const response = await axios.post('http://localhost:4000/api/user/patient-dashboard/sections', {
+        const response = await axios.post('/api/user/patient-dashboard/sections', {
           name: newSectionName
         }, {
           headers: {
@@ -157,7 +157,7 @@ const Report = () => {
 
   const handleSaveSection = async (id, newName) => {
     try {
-      await axios.put(`http://localhost:4000/api/user/patient-dashboard/sections/${id}`, {
+      await axios.put(`/api/user/patient-dashboard/sections/${id}`, {
         name: newName
       }, {
         headers: {
@@ -173,7 +173,7 @@ const Report = () => {
 
   const handleDeleteSection = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/user/patient-dashboard/sections/${id}`, {
+      await axios.delete(`/api/user/patient-dashboard/sections/${id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem("token")}`
         }

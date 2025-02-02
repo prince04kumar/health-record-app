@@ -37,7 +37,7 @@ const Login = () => {
       return; // Stop further execution
     }
 
-    const url = isSignIn ? 'http://localhost:4000/api/user/UserLogin' : 'http://localhost:4000/api/user/addUser';
+    const url = isSignIn ? '/api/user/UserLogin' : '/api/user/addUser';
     const payload = isSignIn
       ? { email, password }  // For login
       : { username, email, password };  // For sign-up

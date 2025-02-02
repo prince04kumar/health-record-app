@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 
 //app config
 const app = express();
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
     res.status(200).send('Hello World');
 })
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 })
 
