@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server:{
     proxy:{
-      '/api':'https://health-record-app.onrender.com',
+      '/api':'https://health-record-app.onrender.com/',
     }
   },
   plugins: [react()],
