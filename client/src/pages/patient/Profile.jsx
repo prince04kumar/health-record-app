@@ -30,7 +30,7 @@ const UserProfileForm = () => {
   const getprofileimg = async () => {
     try {
       const resImage = await axios.get(
-        'http://localhost:4000/api/user/patient-dashboard/profile/profileimage',
+        '/api/user/patient-dashboard/profile/profileimage',
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -64,7 +64,7 @@ const UserProfileForm = () => {
     //  console.log('Uploading image:', base64); // Debugging log
   
       const imgres = await axios.put(
-        'http://localhost:4000/api/user/patient-dashboard/profile/updateimage',
+        '/api/user/patient-dashboard/profile/updateimage',
         { profileImage: base64 }, // Send as an object with a profileImage field
         {
           headers: {
@@ -89,7 +89,7 @@ const UserProfileForm = () => {
     try {
 
       const response = await axios.get(
-        'http://localhost:4000/api/user/patient-dashboard/profile',
+        '/api/user/patient-dashboard/profile',
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -134,7 +134,7 @@ const UserProfileForm = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        'http://localhost:4000/api/user/patient-dashboard/profile/updateuser',
+        '/api/user/patient-dashboard/profile/updateuser',
         formData,
         {
           headers: {
