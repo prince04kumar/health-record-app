@@ -24,7 +24,7 @@ require('dotenv').config();
 app.use(express.json());
 const corsOptions = {
     origin: function (origin, callback) {
-        const allowedOrigins = ['https://health-record-app-six.vercel.app/', 'https://health-record-app-six.vercel.app/'];
+        const allowedOrigins = ['http://localhost:5173', 'https://health-record-app-six.vercel.app/'];
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
